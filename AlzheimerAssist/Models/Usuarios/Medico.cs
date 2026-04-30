@@ -25,7 +25,12 @@ namespace AlzheimerAssist.Models.Usuarios
                 senhaHash,
                 cpf)
         {
+            Nome = nome;
+            Email = email;
+            DefinirSenhaHash(senhaHash);
+            Cpf = cpf;
             Crm = crm;
+        
         }
     }
 }

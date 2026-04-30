@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #F4F6F8;
+  font-family: system-ui, -apple-system, sans-serif;
+}

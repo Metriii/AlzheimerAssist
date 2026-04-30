@@ -1,3 +1,5 @@
+using AlzheimerAssist.Models.Usuarios;
+
 namespace AlzheimerAssist.Models.Usuarios
 {
     public class Cuidador : Usuario
@@ -18,7 +20,10 @@ namespace AlzheimerAssist.Models.Usuarios
                 senhaHash,
                 cpf)
         {
-
+            Nome = nome;
+            Email = email;
+            DefinirSenhaHash(senhaHash);
+            Cpf = cpf;
         }
     }
 }

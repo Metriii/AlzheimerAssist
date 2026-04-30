@@ -5,19 +5,19 @@ namespace AlzheimerAssist.Models.Usuarios
     public abstract class Usuario
     {
         // Propriedades
-        public int Id { get; private set; }
+        public int Id { get;  set; }
 
         [Required]
-        public string Nome { get; private set; } = null!;
+        public string Nome { get;  set; } = null!;
 
         [Required]
-        public string Email { get; private set; } = null!;
+        public string Email { get;  set; } = null!;
 
         [Required]
-        public string SenhaHash { get; private set; } = null!;
+        public string SenhaHash { get;  set; } = null!;
 
         [Required]
-        public string Cpf { get; private set; } = null!;
+        public string Cpf { get;  set; } = null!;
 
 
         public Usuario()
@@ -35,6 +35,14 @@ namespace AlzheimerAssist.Models.Usuarios
             Email = email;
             SenhaHash = senhaHash;
             Cpf = cpf;
+        }
+
+        protected void DefinirSenhaHash(string senhaHash)
+        {
+            if (string.IsNullOrWhiteSpace(senhaHash))
+                throw new ArgumentException("Senha inválida");
+
+            SenhaHash = senhaHash;
         }
 
     }

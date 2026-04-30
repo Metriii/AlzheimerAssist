@@ -1,0 +1,19 @@
+<div class="container">
+
+  <h1>Login</h1>
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" [(ngModel)]="email">
+  </div>
+
+  <div class="form-group">
+    <label>Senha</label>
+    <input type="password" [(ngModel)]="senha">
+  </div>
+
+  <button (click)="login()">Entrar</button>
+
+  <!-- 🔥 AQUI ESTÁ O LINK CORRETO -->
+<a routerLink="/register">Cadastrar Conta</a>
+</div>
