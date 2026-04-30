@@ -1,0 +1,111 @@
+/* BASE */
+.container {
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+/* 👋 HEADER (AGORA SEM BUG) */
+.header {
+  margin-bottom: 15px;
+}
+
+.header h1 {
+  font-size: 20px;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.header p {
+  font-size: 13px;
+  color: #7f8c8d;
+  margin-top: 4px;
+}
+
+/* GRID MOBILE */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+/* CARDS */
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* LISTAS */
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.item-col {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* STATUS */
+.status {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: white;
+}
+
+.ok {
+  background: #2ecc71;
+}
+
+.atencao {
+  background: #f1c40f;
+  color: #2c3e50;
+}
+
+.critico {
+  background: #e74c3c;
+}
+
+/* ALERTAS */
+.alertas {
+  border-left: 4px solid #e74c3c;
+}
+
+.alerta {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* 💻 DESKTOP */
+@media (min-width: 768px) {
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+
+  .header p {
+    font-size: 15px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}

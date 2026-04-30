@@ -1,0 +1,55 @@
+<div class="container">
+
+  <!-- 👋 HEADER (FORA DA GRID = NUNCA SOME) -->
+  <div class="header">
+    <h1>👋 Boas-vindas, doutor {{ medicoNome }}</h1>
+    <p>Painel clínico</p>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <div class="card">
+      <h2>Pacientes</h2>
+      <div *ngFor="let p of pacientes" class="item">
+        <span>{{ p.nome }}</span>
+        <span class="status" [ngClass]="p.status">
+          {{ p.status }}
+        </span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Medicações</h2>
+      <div *ngFor="let m of medicamentos" class="item">
+        <span>{{ m.nome }}</span>
+        <small>{{ m.paciente }}</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Consultas</h2>
+      <div *ngFor="let c of consultas" class="item">
+        <span>{{ c.paciente }}</span>
+        <span>{{ c.data }}</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Observações</h2>
+      <div *ngFor="let o of observacoes" class="item-col">
+        <strong>{{ o.paciente }}</strong>
+        <p>{{ o.texto }}</p>
+      </div>
+    </div>
+
+    <div class="card alertas">
+      <h2>Alertas</h2>
+      <div *ngFor="let a of alertas" class="alerta">
+        ⚠ {{ a.mensagem }}
+      </div>
+    </div>
+
+  </div>
+
+</div>
