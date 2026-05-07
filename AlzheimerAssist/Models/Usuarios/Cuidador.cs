@@ -4,6 +4,9 @@ namespace AlzheimerAssist.Models.Usuarios
 {
     public class Cuidador : Usuario
     {
+        public int PacienteId { get; private set; }
+
+        public Paciente Paciente { get; private set; } = null!;
         public Cuidador()
         {
 

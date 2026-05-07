@@ -6,7 +6,8 @@ namespace AlzheimerAssist.Models.Usuarios
     {
         [Required]
         public string Crm { get; private set; } = null!;
-
+        public ICollection<MedicoPaciente> Pacientes { get; set; }
+        = new List<MedicoPaciente>();
 
         public Medico()
         {

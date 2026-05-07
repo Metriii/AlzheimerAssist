@@ -3,6 +3,8 @@ import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 import { HomeComponent } from './pages/home/home';
 import { HomeMedicoComponent } from './pages/home-medico/home-medico';
+import { HomeCuidador } from './pages/home-cuidador/home-cuidador';
+import { VincularPaciente } from './pages/vincular-paciente/vincular-paciente';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -12,4 +14,6 @@ export const routes: Routes = [
 
   // 👇 ADICIONA ISSO
   { path: 'home-medico', component: HomeMedicoComponent },
+  { path:'home-cuidador', component : HomeCuidador},
+  { path:'vincular-paciente', component : VincularPaciente}
 ];

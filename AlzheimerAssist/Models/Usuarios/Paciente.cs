@@ -2,6 +2,11 @@ namespace AlzheimerAssist.Models.Usuarios
 {
     public class Paciente : Usuario
     {
+    public ICollection<Cuidador> Cuidadores { get; private set; }
+    = new List<Cuidador>();
+
+    public ICollection<MedicoPaciente> Medicos { get; private set; }
+        = new List<MedicoPaciente>();
         public Paciente()
         {
 

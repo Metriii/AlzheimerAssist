@@ -5,19 +5,19 @@ namespace AlzheimerAssist.Models.Usuarios
     public abstract class Usuario
     {
         // Propriedades
-        public int Id { get;  set; }
+        protected int Id { get;  set; }
 
         [Required]
-        public string Nome { get;  set; } = null!;
+        protected string Nome { get;  set; } = null!;
 
         [Required]
-        public string Email { get;  set; } = null!;
+        protected string Email { get;  set; } = null!;
 
         [Required]
-        public string SenhaHash { get;  set; } = null!;
+        protected string SenhaHash { get;  set; } = null!;
 
         [Required]
-        public string Cpf { get;  set; } = null!;
+        protected string Cpf { get;  set; } = null!;
 
 
         public Usuario()

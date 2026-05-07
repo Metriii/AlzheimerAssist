@@ -1,50 +1,73 @@
 <div class="container">
 
-  <!-- 👋 HEADER (FORA DA GRID = NUNCA SOME) -->
-  <div class="header">
-    <h1>👋 Boas-vindas, doutor {{ medicoNome }}</h1>
-    <p>Painel clínico</p>
+  <!-- BOAS-VINDAS -->
+  <div class="welcome">
+    <h1>Olá, Doutor 👋</h1>
+
+    <p>
+      Aqui está o resumo diário dos pacientes.
+    </p>
   </div>
 
   <!-- GRID -->
   <div class="grid">
 
+    <!-- PACIENTES -->
     <div class="card">
-      <h2>Pacientes</h2>
+      <h2>👥 Pacientes</h2>
+
       <div *ngFor="let p of pacientes" class="item">
         <span>{{ p.nome }}</span>
+
         <span class="status" [ngClass]="p.status">
           {{ p.status }}
         </span>
       </div>
+        <button class="action-btn">
+        + Adicionar Paciente
+      </button>
     </div>
 
+    <!-- MEDICAÇÕES -->
     <div class="card">
-      <h2>Medicações</h2>
+      <h2>💊 Medicações</h2>
+
       <div *ngFor="let m of medicamentos" class="item">
         <span>{{ m.nome }}</span>
+
         <small>{{ m.paciente }}</small>
       </div>
     </div>
 
+    <!-- CONSULTAS -->
     <div class="card">
-      <h2>Consultas</h2>
+      <h2>📅 Consultas</h2>
+
       <div *ngFor="let c of consultas" class="item">
         <span>{{ c.paciente }}</span>
+
         <span>{{ c.data }}</span>
       </div>
+        <button class="action-btn secondary">
+          + Nova Consulta
+       </button>
     </div>
 
+    <!-- OBSERVAÇÕES -->
     <div class="card">
-      <h2>Observações</h2>
+      <h2>📝 Observações</h2>
+
       <div *ngFor="let o of observacoes" class="item-col">
         <strong>{{ o.paciente }}</strong>
+
         <p>{{ o.texto }}</p>
       </div>
     </div>
 
+    <!-- ALERTAS -->
     <div class="card alertas">
-      <h2>Alertas</h2>
+      <h2>🔔 Alertas</h2>
+
       <div *ngFor="let a of alertas" class="alerta">
         ⚠ {{ a.mensagem }}
       </div>

@@ -1,111 +1,216 @@
-/* BASE */
-.container {
-  padding: 15px;
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
-  min-height: 100vh;
+:host {
+  display: block;
+
+  background: #F4F6F8;
 }
 
-/* 👋 HEADER (AGORA SEM BUG) */
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 20px;
+}
+
+/* HEADER */
 .header {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .header h1 {
-  font-size: 20px;
-  margin: 0;
-  color: #2c3e50;
+  font-size: 28px;
+  font-weight: 600;
+
+  color: #2D2D2D;
+
+  margin-bottom: 6px;
 }
 
 .header p {
-  font-size: 13px;
-  color: #7f8c8d;
-  margin-top: 4px;
+  font-size: 14px;
+
+  color: #6B7280;
 }
 
-/* GRID MOBILE */
+/* BOAS-VINDAS */
+.welcome {
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  margin-bottom: 20px;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.welcome h1 {
+  font-size: clamp(24px, 4vw, 34px);
+
+  color: #2D2D2D;
+
+  margin-bottom: 8px;
+}
+
+.welcome p {
+  font-size: 14px;
+
+  color: #6B7280;
+
+  line-height: 1.5;
+}
+
+/* GRID */
 .grid {
   display: grid;
+
   grid-template-columns: 1fr;
-  gap: 15px;
+
+  gap: 20px;
 }
 
-/* CARDS */
+/* CARD */
 .card {
   background: white;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
 }
 
 .card h2 {
-  font-size: 16px;
-  margin-bottom: 10px;
+  font-size: 18px;
+
+  margin-bottom: 16px;
+
+  color: #2D2D2D;
 }
 
-/* LISTAS */
+/* ITENS */
 .item {
   display: flex;
+
   justify-content: space-between;
-  margin-bottom: 8px;
+
+  align-items: center;
+
+  margin-bottom: 12px;
+
   font-size: 14px;
+
+  color: #4B5563;
+}
+
+.item small {
+  color: #6B7280;
 }
 
 .item-col {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+
   font-size: 14px;
+
+  color: #4B5563;
+}
+
+.item-col strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #2D2D2D;
+}
+
+.item-col p {
+  color: #6B7280;
+
+  line-height: 1.5;
 }
 
 /* STATUS */
 .status {
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 11px;
+  padding: 4px 10px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
+
   color: white;
 }
 
 .ok {
-  background: #2ecc71;
+  background: #22C55E;
 }
 
 .atencao {
-  background: #f1c40f;
-  color: #2c3e50;
+  background: #FACC15;
+
+  color: #2D2D2D;
 }
 
 .critico {
-  background: #e74c3c;
+  background: #EF4444;
 }
 
 /* ALERTAS */
 .alertas {
-  border-left: 4px solid #e74c3c;
+  border-left: 4px solid #EF4444;
 }
 
 .alerta {
+  margin-bottom: 10px;
+
   font-size: 14px;
-  margin-bottom: 6px;
+
+  color: #374151;
 }
 
-/* 💻 DESKTOP */
+/* RESPONSIVIDADE */
 @media (min-width: 768px) {
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px;
-  }
-
-  .header h1 {
-    font-size: 26px;
-  }
-
-  .header p {
-    font-size: 15px;
-  }
 
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
+}
+
+/* BOTÕES */
+.action-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  margin-top: 16px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #6FA8DC;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.action-btn:hover {
+  background: #5A94C7;
+}
+
+.action-btn.secondary {
+  background: #22C55E;
+}
+
+.action-btn.secondary:hover {
+  background: #16A34A;
 }

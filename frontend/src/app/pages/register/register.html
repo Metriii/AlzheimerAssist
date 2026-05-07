@@ -26,12 +26,12 @@
     <label>Senha</label>
     <input type="password" [(ngModel)]="senha" [class.invalid]="campoInvalido('senha')">
   </div>
-
-  <!-- CUIDADOR -->
-  <div *ngIf="tipo === 'cuidador'" class="form-group">
+    <div class="form-group">
     <label>CPF</label>
     <input type="text" [(ngModel)]="cpf" [class.invalid]="campoInvalido('cpf')">
   </div>
+
+
 
   <!-- MÉDICO -->
   <div *ngIf="tipo === 'medico'" class="form-group">
