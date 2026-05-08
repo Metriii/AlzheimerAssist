@@ -4,6 +4,7 @@ import { RegisterComponent } from './pages/register/register';
 import { HomeComponent } from './pages/home/home';
 import { HomeMedicoComponent } from './pages/home-medico/home-medico';
 import { HomeCuidador } from './pages/home-cuidador/home-cuidador';
+import { HomePacienteComponent } from './pages/home-paciente/home-paciente';
 import { VincularPaciente } from './pages/vincular-paciente/vincular-paciente';
 
 export const routes: Routes = [
@@ -15,5 +16,9 @@ export const routes: Routes = [
   // 👇 ADICIONA ISSO
   { path: 'home-medico', component: HomeMedicoComponent },
   { path:'home-cuidador', component : HomeCuidador},
-  { path:'vincular-paciente', component : VincularPaciente}
+  { path:'vincular-paciente', component : VincularPaciente},
+  {
+  path: 'home-paciente',
+  component: HomePacienteComponent
+}
 ];

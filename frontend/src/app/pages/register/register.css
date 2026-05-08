@@ -120,3 +120,57 @@ a {
 
   text-decoration: none;
 }
+.tipo-buttons {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+.tipo-btn {
+  flex: 1;
+
+  height: 50px;
+
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+
+  background: #FFFFFF;
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    all 0.25s ease,
+    transform 0.2s ease;
+}
+
+/* HOVER */
+.tipo-btn:hover {
+  border-color: #0F766E;
+
+  transform: translateY(-2px);
+}
+
+/* ATIVO */
+.tipo-btn.active {
+  background: #5A94C7;
+
+  border-color: #5A94C7;
+
+  color: white;
+
+  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .tipo-buttons {
+    flex-direction: column;
+  }
+}

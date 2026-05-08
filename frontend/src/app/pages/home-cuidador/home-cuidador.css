@@ -1,94 +1,101 @@
+* {
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
 :host {
   display: block;
 
-  min-height: auto;
+  width: 100%;
+
+  min-height: 100vh;
 
   background: #F4F6F8;
 }
 
 /* CONTAINER */
 .container {
+  width: 100%;
+
   max-width: 1200px;
 
   margin: 0 auto;
 
-  padding: 20px;
-}
+  padding: 85px 24px 40px;
 
-/* HEADER */
-.header {
-  margin-bottom: 25px;
-}
+  display: flex;
 
-.header h1 {
-  font-size: 28px;
-  font-weight: 600;
+  flex-direction: column;
 
-  color: #2D2D2D;
-
-  margin-bottom: 6px;
-}
-
-
-.header p {
-  font-size: 14px;
-
-  color: #6B7280;
+  gap: 24px;
 }
 
 /* BOAS-VINDAS */
 .welcome {
+  width: 100%;
+
   background: white;
 
-  border-radius: 16px;
+  border-radius: 18px;
 
-  padding: 22px;
-
-  margin-bottom: 20px;
+  padding: 28px;
 
   box-shadow: 0 8px 25px rgba(0,0,0,0.05);
 }
 
 .welcome h1 {
-  font-size: clamp(24px, 4vw, 34px);
+  font-size: clamp(28px, 4vw, 36px);
+
+  font-weight: 700;
 
   color: #2D2D2D;
 
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .welcome p {
-  font-size: 14px;
+  font-size: 15px;
 
   color: #6B7280;
 
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* GRID */
 .grid {
+  width: 100%;
+
   display: grid;
 
   grid-template-columns: 1fr;
 
   gap: 20px;
+
+  align-items: stretch;
 }
 
 /* CARD */
 .card {
+  width: 100%;
+
   background: white;
 
   border-radius: 16px;
 
   padding: 22px;
 
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.05);
 }
 
 .card h2 {
   font-size: 18px;
 
-  margin-bottom: 16px;
+  font-weight: 600;
+
+  margin-bottom: 18px;
 
   color: #2D2D2D;
 }
@@ -96,9 +103,14 @@
 /* ITENS */
 .item {
   display: flex;
+
   justify-content: space-between;
 
-  margin-bottom: 12px;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 14px;
 
   font-size: 14px;
 
@@ -106,7 +118,7 @@
 }
 
 .item-col {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 
   font-size: 14px;
 
@@ -116,26 +128,38 @@
 /* CHECKLIST */
 .check-item {
   display: flex;
+
   align-items: center;
 
   gap: 10px;
 
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.check-item input {
+  width: 16px;
+
+  height: 16px;
+
+  cursor: pointer;
 }
 
 .check-item label {
   font-size: 14px;
 
   color: #374151;
+
+  cursor: pointer;
 }
 
 /* STATUS */
 .status {
-  padding: 4px 10px;
+  padding: 5px 10px;
 
   border-radius: 8px;
 
   font-size: 12px;
+
   font-weight: 600;
 
   color: white;
@@ -151,16 +175,18 @@
 }
 
 .alerta {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 
   font-size: 14px;
 
   color: #374151;
+
+  line-height: 1.5;
 }
 
 /* AGENDA */
 .agenda-item {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .agenda-item strong {
@@ -186,6 +212,7 @@ textarea {
   padding: 14px;
 
   border: 1px solid #E5E7EB;
+
   border-radius: 10px;
 
   resize: none;
@@ -197,6 +224,8 @@ textarea {
   margin-bottom: 16px;
 
   background: #F9FAFB;
+
+  transition: 0.2s;
 }
 
 textarea:focus {
@@ -204,7 +233,7 @@ textarea:focus {
 
   border-color: #6FA8DC;
 
-  box-shadow: 0 0 0 2px rgba(111, 168, 220, 0.15);
+  box-shadow: 0 0 0 2px rgba(111,168,220,0.15);
 }
 
 /* BOTÃO */
@@ -214,6 +243,7 @@ button {
   padding: 14px;
 
   border: none;
+
   border-radius: 10px;
 
   background: #6FA8DC;
@@ -221,6 +251,7 @@ button {
   color: white;
 
   font-size: 15px;
+
   font-weight: 600;
 
   cursor: pointer;
@@ -237,6 +268,10 @@ button:hover {
 
   .grid {
     grid-template-columns: repeat(2, 1fr);
+
+    column-gap: 20px;
+
+    row-gap: 20px;
   }
 
 }

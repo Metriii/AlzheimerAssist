@@ -1,16 +1,40 @@
 <div class="container">
 
   <h1>Cadastro</h1>
+<div class="form-group">
+  <label>Tipo de usuário</label>
 
-  <div class="form-group">
-    <label>Tipo de usuário</label>
-    <select [(ngModel)]="tipo" [class.invalid]="campoInvalido('tipo')">
-      <option value="">Selecione</option>
-      <option value="paciente">Paciente</option>
-      <option value="cuidador">Cuidador</option>
-      <option value="medico">Médico</option>
-    </select>
+  <div class="tipo-buttons">
+
+    <button
+      type="button"
+      class="tipo-btn"
+      [class.active]="tipo === 'paciente'"
+      (click)="tipo = 'paciente'"
+    >
+       Paciente
+    </button>
+
+    <button
+      type="button"
+      class="tipo-btn"
+      [class.active]="tipo === 'cuidador'"
+      (click)="tipo = 'cuidador'"
+    >
+       Cuidador
+    </button>
+
+    <button
+      type="button"
+      class="tipo-btn"
+      [class.active]="tipo === 'medico'"
+      (click)="tipo = 'medico'"
+    >
+       Médico
+    </button>
+
   </div>
+</div>
 
   <div class="form-group">
     <label>Nome</label>

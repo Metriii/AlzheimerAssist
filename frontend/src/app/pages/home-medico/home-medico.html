@@ -63,16 +63,12 @@
         <p>{{ o.texto }}</p>
       </div>
     </div>
-
+</div>
     <!-- ALERTAS -->
-    <div class="card alertas">
-      <h2>🔔 Alertas</h2>
+<div class="alertas">
+  <h2>🔔 Alertas</h2>
 
-      <div *ngFor="let a of alertas" class="alerta">
-        ⚠ {{ a.mensagem }}
-      </div>
-    </div>
-
+  <div *ngFor="let a of alertas" class="alerta">
+    ⚠ {{ a.mensagem }}
   </div>
-
 </div>

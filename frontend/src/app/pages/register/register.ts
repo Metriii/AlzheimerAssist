@@ -13,6 +13,8 @@ import { Router, RouterModule } from '@angular/router';
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
+  
+  
 })
 export class RegisterComponent {
 
