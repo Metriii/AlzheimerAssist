@@ -1,0 +1,81 @@
+<div class="container">
+
+  <h1>Jogo de Associação</h1>
+
+  <!-- IMAGENS -->
+
+  <div class="imagens">
+
+    <div
+      *ngFor="let item of itens"
+
+      class="imagem-card"
+
+      draggable="true"
+
+      (dragstart)="dragStart(item)"
+    >
+
+      <img [src]="item.imagem">
+
+    </div>
+
+  </div>
+
+  <!-- PALAVRAS -->
+
+  <div class="palavras">
+
+    <div
+      *ngFor="let palavra of palavras"
+
+      class="palavra-card"
+
+      (dragover)="permitirDrop($event)"
+
+      (drop)="drop(palavra)"
+    >
+
+<div *ngIf="!palavra.acertou">
+
+  {{ palavra.nome }}
+
+</div>
+
+<img
+  *ngIf="palavra.acertou"
+  [src]="palavra.imagem"
+/>
+    </div>
+
+  </div>
+  <!-- FEEDBACK -->
+
+<div
+  class="feedback"
+  *ngIf="mostrarMensagem"
+  [class.erro]="!acertou"
+>
+
+  {{ mensagem }}
+
+</div>
+</div>
+
+<!-- ANIMAÇÃO FINAL -->
+
+<div class="overlay" *ngIf="mostrarAnimacao">
+
+  <div class="animacao-card">
+
+    <div class="emoji">
+      🎉
+    </div>
+
+    <h2>Parabéns!</h2>
+
+    <p>Você terminou a tarefa diária</p>
+
+  </div>
+
+</div>

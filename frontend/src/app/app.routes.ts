@@ -11,6 +11,7 @@ import { AtividadeMemoria} from './pages/atividade-memoria/atividade-memoria';
 import { AtividadeAnimal } from './pages/atividade-animal/atividade-animal';
 import { JogoMemoria } from './pages/jogo-memoria/jogo-memoria';
 import { JquebraCabeca } from './pages/jquebra-cabeca/jquebra-cabeca';
+import { Jassociacao } from './pages/jassociacao/jassociacao';
 
 export const routes: Routes = [
   
@@ -28,5 +29,6 @@ export const routes: Routes = [
   {path: 'atividade-animal',component: AtividadeAnimal},
   {path: 'jogo-memoria', component :JogoMemoria },
   {path: 'quebra-cabeca', component: JquebraCabeca},
+  {path: 'associacao', component: Jassociacao},
 
 ];
