@@ -1,0 +1,71 @@
+<div class="container">
+
+  <div class="topo">
+
+    <h1>Quebra-Cabeça</h1>
+
+    <div class="info">
+
+      <div class="card-info">
+        <span class="titulo">Nível</span>
+        <span class="valor">{{ nivel }}</span>
+      </div>
+
+      <div class="card-info">
+        <span class="titulo">Movimentos</span>
+        <span class="valor">{{ movimentos }}</span>
+      </div>
+
+    </div>
+
+    <div class="acoes">
+
+      <button (click)="trocarNivel()">
+        Trocar Nível
+      </button>
+
+      <button (click)="embaralhar()">
+        Reiniciar
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="tabuleiro">
+
+    <div
+      *ngFor="let peca of pecas; let i = index"
+      class="peca"
+
+      draggable="true"
+
+      (dragstart)="dragStart(i)"
+
+      (dragover)="permitirDrop($event)"
+
+      (drop)="drop(i)"
+
+      [style.background-image]="'url(' + imagem + ')'"
+
+      [style.background-position]="peca.posicaoImagem"
+    >
+    </div>
+
+  </div>
+
+</div>
+<div class="overlay" *ngIf="mostrarAnimacao">
+
+  <div class="animacao-card">
+
+    <div class="emoji">
+      🎉
+    </div>
+
+    <h2>Parabéns!</h2>
+
+    <p>Você terminou a tarefa diária</p>
+  </div>
+
+</div>
