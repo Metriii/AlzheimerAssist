@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-paciente',
@@ -6,9 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './home-paciente.html',
   styleUrl: './home-paciente.css',
 })
+
 export class HomePacienteComponent {
 
   dataAtual: string = '';
+
+  constructor(private router: Router) {
+
+  }
 
   ngOnInit(): void {
 
@@ -19,6 +25,12 @@ export class HomePacienteComponent {
       day: 'numeric',
       month: 'long'
     });
+
+  }
+
+  irParaAtividade() {
+
+    this.router.navigate(['/atividade-memoria']);
 
   }
 

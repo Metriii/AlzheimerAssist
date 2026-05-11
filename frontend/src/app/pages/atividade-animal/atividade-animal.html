@@ -1,0 +1,66 @@
+<div class="container">
+
+  <div
+    class="card"
+    [class.acertou]="acertou"
+    [class.errou]="errou"
+  >
+
+    <h1>Qual é o animal?</h1>
+
+    <div class="imagem-container">
+      <img
+        [src]="animalAtual.imagem"
+        [alt]="animalAtual.nome"
+      >
+    </div>
+
+    <div class="opcoes">
+
+      <button
+        type="button"
+        *ngFor="let opcao of opcoes"
+        (click)="verificarResposta(opcao)"
+      >
+        {{ opcao }}
+      </button>
+
+    </div>
+
+    <div
+      class="mensagem"
+      *ngIf="mensagem"
+    >
+      {{ mensagem }}
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     TROFÉU FINAL
+========================= -->
+
+<div
+  class="trofeu-overlay"
+  *ngIf="mostrarTrofeu"
+>
+
+  <div class="trofeu-card">
+
+    <div class="trofeu-icone">
+      🏆
+    </div>
+
+    <h2>
+      Parabéns!
+    </h2>
+
+    <p>
+      Você completou a tarefa diária!
+    </p>
+
+  </div>
+
+</div>

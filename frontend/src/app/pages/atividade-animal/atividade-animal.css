@@ -1,0 +1,326 @@
+:host {
+  display: block;
+
+  min-height: 100vh;
+
+  background: #F4F6F8;
+
+  padding: 30px;
+}
+
+/* CONTAINER */
+.container {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.card {
+  width: 100%;
+  max-width: 1100px;
+
+  background: white;
+
+  border-radius: 28px;
+
+  padding: 45px;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+/* TITULO */
+h1 {
+  font-size: 42px;
+
+  color: #2C3E50;
+
+  margin-bottom: 35px;
+}
+
+/* IMAGEM */
+.imagem-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 40px;
+}
+
+.imagem-container img {
+  width: 700px;
+
+  height: 420px;
+
+  object-fit: cover;
+
+  border-radius: 24px;
+
+  border: 5px solid #E5E7EB;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+}
+
+/* BOTOES */
+.opcoes {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 22px;
+}
+
+.opcoes button {
+  height: 80px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: #4F46E5;
+
+  color: white;
+
+  font-size: 24px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.opcoes button:hover {
+  transform: scale(1.03);
+
+  background: #4338CA;
+}
+
+/* MENSAGEM */
+.mensagem {
+  margin-top: 28px;
+
+  font-size: 26px;
+
+  font-weight: bold;
+
+  color: #4338CA;
+}
+
+/* =========================
+   ANIMAÇÃO ACERTO
+========================= */
+
+.card.acertou {
+  animation: acerto 0.5s ease;
+}
+
+@keyframes acerto {
+
+  0% {
+    background: white;
+    transform: scale(1);
+  }
+
+  50% {
+    background: #DCFCE7;
+    transform: scale(1.02);
+  }
+
+  100% {
+    background: white;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   ANIMAÇÃO ERRO
+========================= */
+
+.card.errou {
+  animation: erro 0.5s ease;
+}
+
+@keyframes erro {
+
+  0% {
+    background: white;
+    transform: translateX(0);
+  }
+
+  25% {
+    background: #FEE2E2;
+    transform: translateX(-8px);
+  }
+
+  50% {
+    transform: translateX(8px);
+  }
+
+  75% {
+    transform: translateX(-8px);
+  }
+
+  100% {
+    background: white;
+    transform: translateX(0);
+  }
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+
+  .card {
+    padding: 28px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .imagem-container img {
+    width: 100%;
+
+    height: 300px;
+  }
+
+  .opcoes button {
+    height: 65px;
+
+    font-size: 20px;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  :host {
+    padding: 15px;
+  }
+
+  .opcoes {
+    grid-template-columns: 1fr;
+  }
+
+  .imagem-container img {
+    height: 240px;
+  }
+
+}
+/* =========================
+   TROFÉU FINAL
+========================= */
+
+.trofeu-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  z-index: 999;
+
+  overflow: hidden;
+}
+
+.trofeu-card {
+
+  margin-top: 80px;
+
+  width: 90%;
+  max-width: 520px;
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 45px;
+
+  text-align: center;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.20);
+
+  animation: cairTrofeu 1s ease;
+}
+
+.trofeu-icone {
+
+  font-size: 95px;
+
+  margin-bottom: 20px;
+
+  animation: pulse 1.5s infinite;
+}
+
+.trofeu-card h2 {
+
+  font-size: 44px;
+
+  color: #F59E0B;
+
+  margin-bottom: 12px;
+}
+
+.trofeu-card p {
+
+  font-size: 25px;
+
+  color: #374151;
+
+  line-height: 1.4;
+}
+
+/* =========================
+   ANIMAÇÃO CAIR
+========================= */
+
+@keyframes cairTrofeu {
+
+  0% {
+    transform: translateY(-500px) scale(0.5);
+    opacity: 0;
+  }
+
+  70% {
+    transform: translateY(30px) scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   ANIMAÇÃO PULSAR
+========================= */
+
+@keyframes pulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
