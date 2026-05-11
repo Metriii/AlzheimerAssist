@@ -1,0 +1,317 @@
+/* jogo-memoria.css */
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f4f6f8;
+  padding: 30px;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* TOPO */
+.topo {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.topo h1 {
+
+  font-size: 38px;
+  color: #1e293b;
+}
+
+.topo button {
+
+  border: none;
+
+  background: #2563eb;
+  color: white;
+
+  padding: 14px 24px;
+
+  border-radius: 14px;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.topo button:hover {
+  transform: scale(1.03);
+}
+
+/* GRID */
+.grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(6, minmax(190px, 1fr));
+
+  gap: 34px;
+
+  padding: 10px 20px;
+}
+
+/* CARTA */
+.carta {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 185px;
+
+  cursor: pointer;
+
+  transform-style: preserve-3d;
+
+  transition: transform 0.5s;
+}
+
+.carta.virada {
+  transform: rotateY(180deg);
+}
+
+/* FACES */
+.frente,
+.verso {
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 20px;
+
+  backface-visibility: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background: white;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* FRENTE */
+.frente {
+
+  font-size: 60px;
+
+  color: #2563eb;
+}
+
+/* VERSO */
+.verso {
+
+  transform: rotateY(180deg);
+
+  padding: 12px;
+}
+
+.verso img {
+
+  width: 85px;
+  height: 85px;
+
+  object-fit: contain;
+
+  margin-bottom: 10px;
+}
+
+.verso span {
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  color: #334155;
+
+  text-align: center;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1600px) {
+
+  .grid {
+
+    grid-template-columns: repeat(5, minmax(190px, 1fr));
+
+    gap: 30px;
+  }
+}
+
+@media (max-width: 1200px) {
+
+  .grid {
+
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+
+    gap: 26px;
+  }
+
+  .carta {
+    height: 175px;
+  }
+}
+
+@media (max-width: 900px) {
+
+  .grid {
+
+    grid-template-columns: repeat(3, minmax(170px, 1fr));
+
+    gap: 22px;
+  }
+
+  .carta {
+    height: 165px;
+  }
+
+  .verso img {
+
+    width: 75px;
+    height: 75px;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .grid {
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+  }
+
+  .topo {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .topo h1 {
+    font-size: 30px;
+  }
+}
+
+/* =========================
+   TROFÉU
+========================= */
+
+.trofeu-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  z-index: 999;
+
+  overflow: hidden;
+}
+
+.trofeu-card {
+
+  margin-top: 80px;
+
+  width: 90%;
+  max-width: 520px;
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 45px;
+
+  text-align: center;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.20);
+
+  animation: cairTrofeu 1s ease;
+}
+
+.trofeu-icone {
+
+  font-size: 95px;
+
+  margin-bottom: 20px;
+
+  animation: pulse 1.5s infinite;
+}
+
+.trofeu-card h2 {
+
+  font-size: 44px;
+
+  color: #F59E0B;
+
+  margin-bottom: 12px;
+}
+
+.trofeu-card p {
+
+  font-size: 25px;
+
+  color: #374151;
+
+  line-height: 1.4;
+}
+
+/* ANIMAÇÃO CAIR */
+
+@keyframes cairTrofeu {
+
+  0% {
+    transform: translateY(-500px) scale(0.5);
+    opacity: 0;
+  }
+
+  70% {
+    transform: translateY(30px) scale(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ANIMAÇÃO PULSAR */
+
+@keyframes pulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

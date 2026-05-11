@@ -9,6 +9,7 @@ import { HomePacienteComponent } from './pages/home-paciente/home-paciente';
 import { VincularPaciente } from './pages/vincular-paciente/vincular-paciente';
 import { AtividadeMemoria} from './pages/atividade-memoria/atividade-memoria';
 import { AtividadeAnimal } from './pages/atividade-animal/atividade-animal';
+import { JogoMemoria } from './pages/jogo-memoria/jogo-memoria';
 
 export const routes: Routes = [
   
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path:'vincular-paciente', component : VincularPaciente},
   { path: 'home-paciente', component: HomePacienteComponent},
   {path: 'atividade-memoria', component: AtividadeMemoria},
-  {path: 'atividade-animal',component: AtividadeAnimal}
+  {path: 'atividade-animal',component: AtividadeAnimal},
+  {path: 'jogo-memoria', component :JogoMemoria }
 
 ];
