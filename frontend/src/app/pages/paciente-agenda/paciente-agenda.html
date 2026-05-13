@@ -1,0 +1,11 @@
+<h2>Paciente</h2>
+
+<div *ngIf="tarefas.length === 0">
+  <p>Nenhuma tarefa cadastrada</p>
+</div>
+
+<div *ngFor="let t of tarefas">
+  <p>
+    <b>{{ t.titulo }}</b> - {{ t.horario }}
+  </p>
+</div>

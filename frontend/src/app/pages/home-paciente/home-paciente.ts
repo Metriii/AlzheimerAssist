@@ -34,4 +34,11 @@ export class HomePacienteComponent {
 
   }
 
+  irParaAgendaAnual(){
+    this.router.navigate(['/agenda-anual']);
+  }
+    abrirAgenda() {
+    this.router.navigate(['/agenda-diaria']);
+  }
+
 }

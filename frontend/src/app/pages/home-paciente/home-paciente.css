@@ -306,3 +306,72 @@ button:hover {
   }
 
 }
+
+/* CARD AGENDA ANUAL */
+
+.agenda-anual-card {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 18px;
+
+}
+
+/* ÍCONE */
+
+.agenda-anual-card .icone {
+
+  width: 70px;
+
+  height: 70px;
+
+  min-width: 70px;
+
+  border-radius: 18px;
+
+  background: #E8F1FB;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 32px;
+}
+
+/* CONTEÚDO */
+
+.agenda-anual-card .conteudo {
+
+  flex: 1;
+}
+
+.agenda-anual-card .conteudo h2 {
+
+  margin-bottom: 6px;
+}
+
+.agenda-anual-card .conteudo p {
+
+  font-size: 14px;
+
+  color: #6B7280;
+
+  line-height: 1.5;
+}
+
+/* SETA */
+
+.agenda-anual-card .seta {
+
+  font-size: 30px;
+
+  font-weight: bold;
+
+  color: #6FA8DC;
+}

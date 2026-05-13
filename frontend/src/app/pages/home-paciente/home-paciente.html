@@ -70,66 +70,69 @@
     </div>
 
    <!-- AGENDA -->
-<div class="card agenda-full">
+<!-- AGENDA -->
+<div class="card agenda-full" (click)="abrirAgenda()">
 
   <h2>📅 Agenda do dia</h2>
 
   <div class="agenda-list">
 
     <div class="agenda-item">
-      <span>07:00</span>
       <p>☕ Café da manhã</p>
     </div>
 
     <div class="agenda-item">
-      <span>08:00</span>
       <p>💊 Medicação</p>
     </div>
 
     <div class="agenda-item">
-      <span>10:00</span>
       <p>🚿 Banho</p>
     </div>
 
     <div class="agenda-item">
-      <span>14:00</span>
       <p>🧠 Exercícios</p>
     </div>
 
     <div class="agenda-item">
-      <span>12:00</span>
       <p>🍛 Almoço</p>
     </div>
 
     <div class="agenda-item">
-      <span>18:00</span>
       <p>🍽️ Jantar</p>
     </div>
+</div>
 
+</div>
+
+
+    <div class="grid">
+
+  <!-- COLUNA ESQUERDA -->
+
+  <div class="card agenda-anual-card" (click) = "irParaAgendaAnual()">
+
+    <div class="icone">
+      🗓️
+    </div>
+
+    <div class="conteudo">
+
+      <h2>Agenda Anual</h2>
+
+      <p>
+        Visualize os compromissos cadastrados pelo cuidador.
+      </p>
+
+    </div>
+
+    <div class="seta">
+      →
+    </div>
 
   </div>
 
 </div>
-    <!-- CONTATOS -->
-    <div class="card">
-
-      <h2>👨‍⚕️ Contatos rápidos</h2>
-
-      <div class="contact-item">
-        <strong>Cuidadora:</strong>
-        <span>Maria Silva</span>
-      </div>
-
-      <div class="contact-item">
-        <strong>Médico:</strong>
-        <span>Dr. Carlos</span>
-      </div>
-
-      <button>
-        Entrar em contato
-      </button>
-
-    </div>
+    
 
     <!-- EMERGÊNCIA -->
     <div class="card">

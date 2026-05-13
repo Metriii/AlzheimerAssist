@@ -1,0 +1,56 @@
+<div class="agenda-container">
+
+  <!-- BOTÃO VOLTAR -->
+
+  <button class="agenda-btn-voltar" (click)="voltar()">
+    ← Voltar
+  </button>
+
+  <!-- CARD -->
+  <div class="agenda-card">
+
+    <!-- TOPO -->
+    <div class="agenda-topo">
+
+      <button class="agenda-btn-mes" (click)="mesAnterior()">
+        ←
+      </button>
+
+      <h2 class="agenda-nome-mes">
+        {{ meses[mesAtual].nome }} {{ ano }}
+      </h2>
+
+      <button class="agenda-btn-mes" (click)="proximoMes()">
+        →
+      </button>
+
+    </div>
+
+    <!-- DIAS DA SEMANA -->
+    <div class="agenda-dias-semana">
+
+      <span>Dom</span>
+      <span>Seg</span>
+      <span>Ter</span>
+      <span>Qua</span>
+      <span>Qui</span>
+      <span>Sex</span>
+      <span>Sáb</span>
+
+    </div>
+
+    <!-- GRID -->
+    <div class="agenda-grid">
+
+      <div
+        class="agenda-dia"
+        *ngFor="let dia of gerarDias(meses[mesAtual].dias)"
+      >
+        {{ dia }}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
