@@ -1,6 +1,40 @@
-<h2>Cuidador</h2>
+<h2>Cuidador - Agenda</h2>
 
-<input [(ngModel)]="titulo" placeholder="Título">
-<input [(ngModel)]="horario" placeholder="Horário">
+<div>
+  <label>Título:</label>
+  <input
+    type="text"
+    placeholder="Ex: Remédio"
+    [(ngModel)]="titulo"
+  />
+</div>
 
-<button (click)="adicionar()">Adicionar</button>
+<br />
+
+<div>
+  <label>Horário:</label>
+  <input
+    type="time"
+    [(ngModel)]="horario"
+  />
+</div>
+
+<br />
+
+<button (click)="enviar()">
+  Adicionar tarefa
+</button>
+
+<hr>
+
+<h3>Tarefas cadastradas</h3>
+
+<ul>
+  <li *ngFor="let t of tarefas; let i = index">
+    {{ t.titulo }} - {{ t.horario }}
+
+    <button (click)="excluir(i)">
+      ❌ Excluir
+    </button>
+  </li>
+</ul>

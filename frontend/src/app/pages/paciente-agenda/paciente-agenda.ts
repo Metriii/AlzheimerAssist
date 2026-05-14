@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AgendaService, Tarefa } from '../../services/agenda';
 
 @Component({
   selector: 'app-paciente-agenda',
@@ -8,11 +7,30 @@ import { AgendaService, Tarefa } from '../../services/agenda';
   imports: [CommonModule],
   templateUrl: './paciente-agenda.html'
 })
-export class PacienteAgenda {
+export class PacienteAgenda implements OnInit {
 
-  constructor(public agendaService: AgendaService) {}
+  tarefas: any[] = [];
 
-  get tarefas(): Tarefa[] {
-    return this.agendaService.listar();
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
+
+    console.log('PACIENTE INICIADO');
+
+    setInterval(() => {
+
+      const raw = localStorage.getItem('agenda');
+      const dados = raw ? JSON.parse(raw) : [];
+
+      this.tarefas = [...dados];
+
+      console.log('LISTA:', this.tarefas);
+
+      // 🔥 FORÇA atualização da tela
+      this.cdr.detectChanges();
+
+    }, 1000);
+
   }
+
 }

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AgendaService } from '../../services/agenda';
+
+import { AgendaService } from '../../services/agenda.service';
 
 @Component({
   selector: 'app-cuidador-agenda',
@@ -9,22 +10,43 @@ import { AgendaService } from '../../services/agenda';
   imports: [CommonModule, FormsModule],
   templateUrl: './cuidador-agenda.html'
 })
-export class CuidadorAgenda {
+export class CuidadorAgenda implements OnInit {
 
   titulo = '';
   horario = '';
 
-  constructor(public agendaService: AgendaService) {}
+  tarefas: any[] = [];
 
-  adicionar() {
-    if (!this.titulo || !this.horario) return;
+  constructor(private agenda: AgendaService) {}
 
-    this.agendaService.adicionar(this.titulo, this.horario);
+  ngOnInit() {
+    this.atualizar();
+  }
 
-    console.log('👨‍⚕️ CUIDADOR ADICIONOU');
-    console.log(this.agendaService.listar());
+  enviar() {
+
+    console.log('CUIDADOR -> enviar');
+
+    this.agenda.salvar(this.titulo, this.horario);
 
     this.titulo = '';
     this.horario = '';
+
+    this.atualizar();
   }
+
+  excluir(index: number) {
+
+    console.log('CUIDADOR -> excluir', index);
+
+    this.agenda.excluir(index);
+
+    this.atualizar();
+  }
+
+  atualizar() {
+    this.tarefas =
+      JSON.parse(localStorage.getItem('agenda') || '[]');
+  }
+
 }
