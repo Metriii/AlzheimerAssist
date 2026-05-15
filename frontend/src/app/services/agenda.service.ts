@@ -5,39 +5,73 @@ import { Injectable } from '@angular/core';
 })
 export class AgendaService {
 
-  salvar(titulo: string, horario: string) {
+  private storageKey = 'agenda';
 
-    const novaTarefa = {
-      titulo,
-      horario
-    };
+  // 🔥 carregar lista
+  load(): any[] {
 
-    let atual = JSON.parse(localStorage.getItem('agenda') || '[]');
+    return JSON.parse(
+      localStorage.getItem(
+        this.storageKey
+      ) || '[]'
+    );
 
-    if (!Array.isArray(atual)) {
-      atual = [];
-    }
-
-    atual.push(novaTarefa);
-
-    localStorage.setItem('agenda', JSON.stringify(atual));
-
-    console.log('SERVICE -> salvou:', atual);
   }
 
+  // 🔥 salvar lista
+  private save(lista: any[]) {
+
+    localStorage.setItem(
+      this.storageKey,
+      JSON.stringify(lista)
+    );
+
+    console.log(
+      'SERVICE -> lista salva',
+      lista
+    );
+
+  }
+
+  // 🔥 adicionar
+  salvar(
+    titulo: string,
+    horario: string
+  ) {
+
+    const atual = this.load();
+
+    atual.push({
+      titulo,
+      horario,
+      feito: false
+    });
+
+    this.save(atual);
+
+  }
+
+  // 🔥 excluir
   excluir(index: number) {
 
-    let atual = JSON.parse(localStorage.getItem('agenda') || '[]');
-
-    if (!Array.isArray(atual)) {
-      atual = [];
-    }
+    const atual = this.load();
 
     atual.splice(index, 1);
 
-    localStorage.setItem('agenda', JSON.stringify(atual));
+    this.save(atual);
 
-    console.log('SERVICE -> excluiu:', atual);
+  }
+
+  // 🔥 checkbox
+  toggleFeito(index: number) {
+
+    const atual = this.load();
+
+    atual[index].feito =
+      !atual[index].feito;
+
+    this.save(atual);
+
   }
 
 }

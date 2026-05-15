@@ -71,40 +71,43 @@
 
    <!-- AGENDA -->
 <!-- AGENDA -->
-<div class="card agenda-full" (click)="abrirAgenda()">
+<div
+  class="card agenda-full"
+  (click)="abrirAgenda()"
+>
 
   <h2>📅 Agenda do dia</h2>
 
   <div class="agenda-list">
 
-    <div class="agenda-item">
-      <p>☕ Café da manhã</p>
+    <div
+      class="agenda-item"
+      *ngFor="let t of tarefas"
+    >
+
+      <p>
+
+        <span *ngIf="t.feito">
+          ✅
+        </span>
+
+        <span *ngIf="!t.feito">
+          ⏳
+        </span>
+
+        {{ t.titulo }}
+
+        -
+
+        {{ t.horario }}
+
+      </p>
+
     </div>
 
-    <div class="agenda-item">
-      <p>💊 Medicação</p>
-    </div>
+  </div>
 
-    <div class="agenda-item">
-      <p>🚿 Banho</p>
-    </div>
-
-    <div class="agenda-item">
-      <p>🧠 Exercícios</p>
-    </div>
-
-    <div class="agenda-item">
-      <p>🍛 Almoço</p>
-    </div>
-
-    <div class="agenda-item">
-      <p>🍽️ Jantar</p>
-    </div>
 </div>
-
-</div>
-
-
     <div class="grid">
 
   <!-- COLUNA ESQUERDA -->

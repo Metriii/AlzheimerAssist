@@ -1,7 +1,56 @@
-<h2>Paciente - Agenda</h2>
+<div class="layout">
 
-<ul>
-  <li *ngFor="let t of tarefas">
-    {{ t.titulo }} - {{ t.horario }}
-  </li>
-</ul>
+  <button
+    class="btn-voltar"
+    (click)="voltar()"
+  >
+    Voltar
+  </button>
+
+  <div class="card-paciente">
+
+    <h2>Agenda do Paciente</h2>
+
+    <ul class="lista-tarefas">
+
+      <li
+        *ngFor="let t of tarefas; let i = index"
+        class="tarefa-card"
+      >
+
+        <div class="tarefa-info">
+
+          <input
+            type="checkbox"
+            [checked]="t.feito"
+            (change)="toggle(i)"
+          />
+
+          <div
+            class="tarefa-texto"
+            [class.feito]="t.feito"
+          >
+
+            <span class="titulo">
+              {{ t.titulo }}
+            </span>
+
+            <span class="horario">
+              {{ t.horario }}
+            </span>
+
+          </div>
+
+        </div>
+
+        <button class="btn-del btn-del-invisivel">
+          ❌
+        </button>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>

@@ -1,52 +1,87 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 
-import { AgendaService } from '../../services/agenda.service';
+import { CommonModule} from '@angular/common';
+
+import { FormsModule} from '@angular/forms';
+
+import { AgendaService} from '../../services/agenda.service';
 
 @Component({
   selector: 'app-cuidador-agenda',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './cuidador-agenda.html'
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
+  templateUrl: './cuidador-agenda.html',
+  styleUrl: './cuidador-agenda.css'
 })
-export class CuidadorAgenda implements OnInit {
+export class CuidadorAgenda
+implements OnInit {
 
   titulo = '';
   horario = '';
 
   tarefas: any[] = [];
 
-  constructor(private agenda: AgendaService) {}
+  constructor(
+    private agenda: AgendaService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    this.atualizar();
+
+    // 🔥 carregar inicial
+    this.load();
+
+    // 🔥 sincronização automática
+    setInterval(() => {
+
+      this.load();
+
+      // 🔥 força atualizar HTML
+      this.cdr.detectChanges();
+
+    }, 500);
+
+  }
+
+  load() {
+
+    const lista =
+      this.agenda.load();
+
+    this.tarefas = [...lista];
+
   }
 
   enviar() {
 
-    console.log('CUIDADOR -> enviar');
+    this.agenda.salvar(
+      this.titulo,
+      this.horario
+    );
 
-    this.agenda.salvar(this.titulo, this.horario);
+    this.load();
 
     this.titulo = '';
     this.horario = '';
-
-    this.atualizar();
   }
 
   excluir(index: number) {
 
-    console.log('CUIDADOR -> excluir', index);
-
     this.agenda.excluir(index);
 
-    this.atualizar();
+    this.load();
+
   }
 
-  atualizar() {
-    this.tarefas =
-      JSON.parse(localStorage.getItem('agenda') || '[]');
+  toggle(index: number) {
+
+    this.agenda.toggleFeito(index);
+
+    this.load();
+
   }
 
 }

@@ -1,40 +1,70 @@
-<h2>Cuidador - Agenda</h2>
+<div class="card-cuidador">
 
-<div>
-  <label>Título:</label>
-  <input
-    type="text"
-    placeholder="Ex: Remédio"
-    [(ngModel)]="titulo"
-  />
-</div>
+  <h2>Agenda do Cuidador</h2>
 
-<br />
+  <div class="form-group">
 
-<div>
-  <label>Horário:</label>
-  <input
-    type="time"
-    [(ngModel)]="horario"
-  />
-</div>
+    <input
+      type="text"
+      [(ngModel)]="titulo"
+      placeholder="Título da tarefa"
+    />
 
-<br />
+    <input
+      type="time"
+      [(ngModel)]="horario"
+    />
 
-<button (click)="enviar()">
-  Adicionar tarefa
-</button>
-
-<hr>
-
-<h3>Tarefas cadastradas</h3>
-
-<ul>
-  <li *ngFor="let t of tarefas; let i = index">
-    {{ t.titulo }} - {{ t.horario }}
-
-    <button (click)="excluir(i)">
-      ❌ Excluir
+    <button
+      class="btn-add"
+      (click)="enviar()"
+    >
+      Adicionar
     </button>
-  </li>
-</ul>
+
+  </div>
+
+  <ul class="lista-tarefas">
+
+    <li
+      *ngFor="let t of tarefas; let i = index"
+      class="tarefa-card"
+    >
+
+      <div class="tarefa-info">
+
+        <input
+          type="checkbox"
+          [checked]="t.feito"
+          (change)="toggle(i)"
+        />
+
+        <div
+          class="tarefa-texto"
+          [class.feito]="t.feito"
+        >
+
+          <span class="titulo">
+            {{ t.titulo }}
+          </span>
+
+          <span class="horario">
+            {{ t.horario }}
+          </span>
+
+        </div>
+
+      </div>
+
+      <button
+        class="btn-del"
+        (click)="excluir(i)"
+      >
+        ❌
+      </button>
+
+    </li>
+
+  </ul>
+
+</div>

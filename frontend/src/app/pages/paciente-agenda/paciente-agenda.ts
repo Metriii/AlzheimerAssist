@@ -1,35 +1,72 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+
+import {CommonModule} from '@angular/common';
+
+import {AgendaService} from '../../services/agenda.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paciente-agenda',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './paciente-agenda.html'
+  templateUrl: './paciente-agenda.html',
+  styleUrl: './paciente-agenda.css'
 })
-export class PacienteAgenda implements OnInit {
+export class PacienteAgenda
+implements OnInit {
 
   tarefas: any[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private agenda: AgendaService,
+    private cdr: ChangeDetectorRef,
+      private router: Router
+
+  ) {}
 
   ngOnInit() {
 
-    console.log('PACIENTE INICIADO');
+    // 🔥 carregar inicial
+    this.load();
 
+    // 🔥 sincronização automática
     setInterval(() => {
 
-      const raw = localStorage.getItem('agenda');
-      const dados = raw ? JSON.parse(raw) : [];
+      this.load();
 
-      this.tarefas = [...dados];
-
-      console.log('LISTA:', this.tarefas);
-
-      // 🔥 FORÇA atualização da tela
+      // 🔥 força atualizar HTML
       this.cdr.detectChanges();
 
-    }, 1000);
+    }, 500);
+
+  }
+
+  load() {
+
+    const lista =
+      this.agenda.load();
+
+    this.tarefas = [...lista];
+
+    console.log(
+      'PACIENTE:',
+      this.tarefas
+    );
+
+  }
+
+  toggle(index: number) {
+
+    this.agenda.toggleFeito(index);
+
+    this.load();
+
+  }
+  voltar() {
+
+    this.router.navigate([
+      '/home-paciente'
+    ]);
 
   }
 
