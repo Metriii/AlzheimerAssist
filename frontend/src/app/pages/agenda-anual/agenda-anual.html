@@ -1,32 +1,44 @@
-<div class="agenda-container">
+<div class="agenda-page">
 
-  <!-- BOTÃO VOLTAR -->
-
-  <button class="agenda-btn-voltar" (click)="voltar()">
+  <button
+    class="agenda-btn-voltar"
+    (click)="voltar()"
+  >
     ← Voltar
   </button>
 
-  <!-- CARD -->
   <div class="agenda-card">
 
-    <!-- TOPO -->
     <div class="agenda-topo">
 
-      <button class="agenda-btn-mes" (click)="mesAnterior()">
+      <button
+        class="agenda-btn-mes"
+        (click)="mesAnterior()"
+      >
         ←
       </button>
 
-      <h2 class="agenda-nome-mes">
-        {{ meses[mesAtual].nome }} {{ ano }}
-      </h2>
+      <div class="agenda-titulo">
 
-      <button class="agenda-btn-mes" (click)="proximoMes()">
+        <h1>
+          {{ meses[mesAtual].nome }}
+        </h1>
+
+        <p>
+          {{ ano }}
+        </p>
+
+      </div>
+
+      <button
+        class="agenda-btn-mes"
+        (click)="proximoMes()"
+      >
         →
       </button>
 
     </div>
 
-    <!-- DIAS DA SEMANA -->
     <div class="agenda-dias-semana">
 
       <span>Dom</span>
@@ -39,14 +51,114 @@
 
     </div>
 
-    <!-- GRID -->
     <div class="agenda-grid">
 
       <div
         class="agenda-dia"
-        *ngFor="let dia of gerarDias(meses[mesAtual].dias)"
+        [class.agenda-dia-vazio]="dia === null"
+        *ngFor="let dia of gerarDias()"
+        (click)="dia !== null && abrirCaixa(dia)"
       >
-        {{ dia }}
+
+        <span *ngIf="dia !== null">
+          {{ dia }}
+        </span>
+
+        <div
+          class="evento-mini"
+          *ngFor="let evento of buscarEventos(dia!)"
+        >
+          {{ evento.titulo }}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+
+  <div
+    class="modal-overlay"
+    *ngIf="diaSelecionado !== null"
+  >
+
+    <div class="evento-card">
+
+      <h2>
+        Compromissos do dia {{ diaSelecionado }}
+      </h2>
+
+      <input
+        type="text"
+        placeholder="Título"
+        [(ngModel)]="tituloEvento"
+      />
+
+      <textarea
+        placeholder="Descrição"
+        [(ngModel)]="descricaoEvento"
+      ></textarea>
+
+      <div class="evento-actions">
+
+        <button
+          class="btn-salvar"
+          (click)="salvarEvento()"
+        >
+          Adicionar
+        </button>
+
+        <button
+          class="btn-cancelar"
+          (click)="fecharCaixa()"
+        >
+          Fechar
+        </button>
+
+      </div>
+
+      <!-- LISTA -->
+
+      <div
+        class="eventos-lista"
+        *ngIf="buscarEventos(diaSelecionado).length > 0"
+      >
+
+        <h3>
+          Eventos cadastrados
+        </h3>
+
+        <div
+          class="evento-item"
+          *ngFor="
+            let evento of buscarEventos(diaSelecionado);
+            let i = index
+          "
+        >
+
+          <div>
+
+            <strong>
+              {{ evento.titulo }}
+            </strong>
+
+            <p>
+              {{ evento.descricao }}
+            </p>
+
+          </div>
+
+          <button
+            class="btn-apagar"
+            (click)="apagarEvento(evento.chave, i)"
+          >
+            ❌
+          </button>
+
+        </div>
+
       </div>
 
     </div>

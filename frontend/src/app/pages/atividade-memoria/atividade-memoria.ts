@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+
+import {
+  Router,
+  RouterModule
+} from '@angular/router';
 
 @Component({
   selector: 'app-atividade-memoria',
@@ -12,4 +17,19 @@ import { RouterModule } from '@angular/router';
   templateUrl: './atividade-memoria.html',
   styleUrl: './atividade-memoria.css',
 })
-export class AtividadeMemoria {}
+
+export class AtividadeMemoria {
+
+  constructor(
+    private router: Router
+  ) {}
+
+  voltar() {
+
+    this.router.navigate([
+      '/home-paciente'
+    ]);
+
+  }
+
+}
