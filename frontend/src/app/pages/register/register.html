@@ -1,76 +1,158 @@
 <div class="container">
 
   <h1>Cadastro</h1>
-<div class="form-group">
-  <label>Tipo de usuário</label>
 
-  <div class="tipo-buttons">
+  <!-- TIPO -->
+  <div class="form-group">
 
-    <button
-      type="button"
-      class="tipo-btn"
-      [class.active]="tipo === 'paciente'"
-      (click)="tipo = 'paciente'"
-    >
-       Paciente
-    </button>
+    <label>Tipo de usuário</label>
 
-    <button
-      type="button"
-      class="tipo-btn"
-      [class.active]="tipo === 'cuidador'"
-      (click)="tipo = 'cuidador'"
-    >
-       Cuidador
-    </button>
+    <div class="tipo-buttons">
 
-    <button
-      type="button"
-      class="tipo-btn"
-      [class.active]="tipo === 'medico'"
-      (click)="tipo = 'medico'"
-    >
-       Médico
-    </button>
+      <button
+        type="button"
+        class="tipo-btn"
+        [class.active]="tipo === 'paciente'"
+        (click)="tipo = 'paciente'"
+      >
+        Paciente
+      </button>
+
+      <button
+        type="button"
+        class="tipo-btn"
+        [class.active]="tipo === 'cuidador'"
+        (click)="tipo = 'cuidador'"
+      >
+        Cuidador
+      </button>
+
+    </div>
 
   </div>
+
+  <!-- NOME -->
+  <div class="form-group">
+
+    <label>Nome</label>
+
+    <input
+      type="text"
+      [(ngModel)]="nome"
+      [class.invalid]="campoInvalido('nome')"
+    >
+
+  </div>
+
+  <!-- EMAIL -->
+  <div class="form-group">
+
+    <label>Email</label>
+
+    <input
+      type="email"
+      [(ngModel)]="email"
+      [class.invalid]="campoInvalido('email')"
+    >
+
+  </div>
+
+  <!-- SENHA -->
+  <div class="form-group">
+
+    <label>Senha</label>
+
+    <input
+      type="password"
+      [(ngModel)]="senha"
+      [class.invalid]="campoInvalido('senha')"
+    >
+
+  </div>
+
+  <!-- CPF -->
+  <div class="form-group">
+
+    <label>CPF</label>
+
+    <input
+      type="text"
+      [(ngModel)]="cpf"
+      (input)="formatarCPF($event)"
+      (keypress)="somenteNumero($event)"
+      maxlength="14"
+      [class.invalid]="campoInvalido('cpf')"
+    >
+
+  </div>
+
+  <!-- BOTÃO -->
+  <button
+    type="button"
+    (click)="continuarCadastro()"
+  >
+    Continuar
+  </button>
+
+  <!-- LINK -->
+  <a routerLink="/">
+    Voltar para login
+  </a>
+
 </div>
 
-  <div class="form-group">
-    <label>Nome</label>
-    <input type="text" [(ngModel)]="nome" [class.invalid]="campoInvalido('nome')">
+<!-- MODAL FACIAL -->
+<div
+  *ngIf="mostrarFace && tipo === 'paciente'"
+  class="face-overlay"
+>
+
+  <div class="registro-facial cair">
+
+    <h2>Registro Facial</h2>
+
+    <p>
+      Posicione seu rosto na câmera
+    </p>
+
+    <video
+      #video
+      autoplay
+      muted
+      playsinline
+    ></video>
+
+    <canvas
+      #canvas
+      style="display:none;"
+    ></canvas>
+
+    <div class="face-buttons">
+
+      <button
+        type="button"
+        (click)="capturarRosto()"
+      >
+        Capturar rosto
+      </button>
+
+    </div>
+
+    <img
+      *ngIf="fotoCapturada"
+      [src]="fotoCapturada"
+      class="foto-preview"
+      alt="Foto capturada"
+    >
+
+    <button
+      type="button"
+      class="btn-finalizar"
+      (click)="cadastrar()"
+    >
+      Finalizar cadastro
+    </button>
+
   </div>
-
-  <div class="form-group">
-    <label>Email</label>
-    <input type="email" [(ngModel)]="email" [class.invalid]="campoInvalido('email')">
-  </div>
-
-  <div class="form-group">
-    <label>Senha</label>
-    <input type="password" [(ngModel)]="senha" [class.invalid]="campoInvalido('senha')">
-  </div>
-    <div class="form-group">
-    <label>CPF</label>
-    <input type="text" [(ngModel)]="cpf" [class.invalid]="campoInvalido('cpf')">
-  </div>
-
-
-
-  <!-- MÉDICO -->
-  <div *ngIf="tipo === 'medico'" class="form-group">
-    <label>CRM</label>
-    <input type="text" [(ngModel)]="crm" [class.invalid]="campoInvalido('crm')">
-  </div>
-
-  <div *ngIf="tipo === 'medico'" class="form-group">
-    <label>Especialidade</label>
-    <input type="text" [(ngModel)]="especialidade" [class.invalid]="campoInvalido('especialidade')">
-  </div>
-
-  <button (click)="cadastrar()">Cadastrar</button>
-
-  <!-- 🔥 ROUTERLINK FUNCIONANDO -->
-  <a routerLink="/">Voltar para login</a>
 
 </div>

@@ -2,10 +2,10 @@
 
   <div class="card">
 
-    <h1>Cadastro Facial</h1>
+    <h1>Reconhecimento Facial</h1>
 
     <p *ngIf="carregando">
-      Carregando câmera...
+      Carregando modelos...
     </p>
 
     <video
@@ -15,9 +15,15 @@
       playsinline>
     </video>
 
-    <button (click)="cadastrarRosto()">
-      Cadastrar rosto
-    </button>
+    <div class="buttons">
+      <button (click)="cadastrarRosto()">
+        Cadastrar rosto
+      </button>
+
+      <button class="login" (click)="loginFacial()">
+        Login facial
+      </button>
+    </div>
 
   </div>
 

@@ -20,7 +20,8 @@
 
   padding: 50px 40px;
 
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.08);
 }
 
 /* TÍTULO */
@@ -51,8 +52,7 @@ label {
 }
 
 /* INPUTS */
-input,
-select {
+input {
   width: 100%;
   height: 45px;
 
@@ -68,15 +68,22 @@ select {
   outline: none;
 
   transition: 0.2s;
+
+  box-sizing: border-box;
 }
 
-input:focus,
-select:focus {
+input:focus {
+
   background: #FFFFFF;
 
   border-color: #6FA8DC;
 
-  box-shadow: 0 0 0 2px rgba(111, 168, 220, 0.15);
+  box-shadow:
+    0 0 0 2px rgba(111, 168, 220, 0.15);
+}
+
+input.invalid {
+  border-color: #EF4444;
 }
 
 /* BOTÃO */
@@ -120,6 +127,8 @@ a {
 
   text-decoration: none;
 }
+
+/* TIPO */
 .tipo-buttons {
   display: flex;
 
@@ -148,10 +157,13 @@ a {
   transition:
     all 0.25s ease,
     transform 0.2s ease;
+
+  margin-top: 0;
 }
 
 /* HOVER */
 .tipo-btn:hover {
+
   border-color: #0F766E;
 
   transform: translateY(-2px);
@@ -159,18 +171,172 @@ a {
 
 /* ATIVO */
 .tipo-btn.active {
+
   background: #5A94C7;
 
   border-color: #5A94C7;
 
   color: white;
 
-  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+  box-shadow:
+    0 8px 18px rgba(15, 118, 110, 0.2);
+}
+
+/* OVERLAY */
+.face-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.45);
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+
+  padding: 20px;
+
+  backdrop-filter: blur(4px);
+}
+
+/* CARD FACE */
+.registro-facial {
+
+  width: 100%;
+  max-width: 520px;
+
+  background: white;
+
+  border-radius: 28px;
+
+  padding: 28px;
+
+  text-align: center;
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.25);
+}
+
+.registro-facial h2 {
+
+  font-size: 22px;
+  font-weight: 600;
+
+  color: #2D2D2D;
+
+  margin-bottom: 8px;
+}
+
+.registro-facial p {
+
+  font-size: 14px;
+
+  color: #6B7280;
+
+  margin-bottom: 18px;
+}
+
+/* VIDEO */
+video {
+  width: 100%;
+  height: 280px;
+
+  background: #111827;
+
+  border-radius: 16px;
+
+  object-fit: cover;
+
+  margin-bottom: 14px;
+}
+
+/* BOTÕES FACE */
+.face-buttons {
+  display: flex;
+
+  gap: 12px;
+}
+
+/* FOTO */
+.foto-preview {
+  width: 150px;
+  height: 150px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  margin-top: 18px;
+
+  border: 4px solid #6FA8DC;
+}
+
+/* FINALIZAR */
+.btn-finalizar {
+  background: #16A34A;
+}
+
+.btn-finalizar:hover {
+  background: #15803D;
+}
+
+/* ANIMAÇÃO */
+.cair {
+  animation: cairDoCeu 0.8s ease;
+}
+
+@keyframes cairDoCeu {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateY(-900px)
+      scale(0.8)
+      rotate(-4deg);
+  }
+
+  70% {
+
+    transform:
+      translateY(30px)
+      scale(1.02);
+  }
+
+  100% {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1)
+      rotate(0);
+  }
 }
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
+
+  :host {
+
+    padding: 20px;
+
+    width: auto;
+  }
+
+  .container {
+    padding: 35px 25px;
+  }
+
   .tipo-buttons {
+    flex-direction: column;
+  }
+
+  .face-buttons {
     flex-direction: column;
   }
 }

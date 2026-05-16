@@ -1,47 +1,33 @@
 :host {
   display: block;
 
-  min-height: auto;
+  min-height: 100vh;
 
   background: #F4F6F8;
 }
 
-/* CONTAINER */
-.container {
-  max-width: 1200px;
+/* LAYOUT */
+
+.layout {
+  width: 100%;
+
+  max-width: 1950px;
 
   margin: 0 auto;
 
-  padding: 20px;
-}
+  padding: 28px 24px 20px 24px;
 
-/* HEADER */
-.header {
-  margin-bottom: 25px;
-}
-
-.header h1 {
-  font-size: 28px;
-  font-weight: 600;
-
-  color: #2D2D2D;
-
-  margin-bottom: 6px;
-}
-
-.header p {
-  font-size: 14px;
-
-  color: #6B7280;
+  box-sizing: border-box;
 }
 
 /* BOAS-VINDAS */
+
 .welcome {
   background: white;
 
-  border-radius: 16px;
+  border-radius: 18px;
 
-  padding: 22px;
+  padding: 28px;
 
   margin-bottom: 20px;
 
@@ -65,23 +51,57 @@
 }
 
 /* GRID */
+
 .grid {
-  columns: 2 450px;
+  display: grid;
+
+  grid-template-columns:
+    calc(50% - 12px)
+    calc(50% - 12px);
+
+  grid-template-areas:
+    "medicacao agenda"
+    "memoria anual";
 
   column-gap: 20px;
+
+  row-gap: 35px;
+
+  width: 100%;
+
+  align-items: stretch;
+}
+
+/* POSIÇÕES */
+
+.grid > .card:nth-child(1) {
+  grid-area: medicacao;
+}
+
+.grid > .card:nth-child(2) {
+  grid-area: memoria;
+}
+
+.grid > .card:nth-child(3) {
+  grid-area: agenda;
+}
+
+.grid > .card:nth-child(4) {
+  grid-area: anual;
 }
 
 /* CARD */
+
 .card {
-  break-inside: avoid;
+  width: 100%;
+
+  box-sizing: border-box;
 
   background: white;
 
   border-radius: 16px;
 
-  padding: 22px;
-
-  margin-bottom: 20px;
+  padding: 32px;
 
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
 
@@ -103,7 +123,7 @@
 }
 
 .card h2 {
-  font-size: 18px;
+  font-size: 28px;
 
   margin-bottom: 16px;
 
@@ -111,6 +131,7 @@
 }
 
 /* CARD TOP */
+
 .card-top {
   display: flex;
 
@@ -124,12 +145,14 @@
 }
 
 /* STATUS */
+
 .status {
   padding: 4px 10px;
 
   border-radius: 8px;
 
   font-size: 12px;
+
   font-weight: 600;
 
   color: white;
@@ -144,6 +167,7 @@
 }
 
 /* INFO */
+
 .info {
   display: flex;
 
@@ -167,6 +191,7 @@
 }
 
 /* TEXTO */
+
 .card p {
   font-size: 14px;
 
@@ -178,6 +203,7 @@
 }
 
 /* MEMÓRIA */
+
 .memory-preview {
   display: grid;
 
@@ -205,6 +231,7 @@
 }
 
 /* AGENDA */
+
 .agenda-list {
   display: flex;
 
@@ -231,6 +258,7 @@
   min-width: 55px;
 
   font-size: 14px;
+
   font-weight: 600;
 
   color: #2D2D2D;
@@ -242,26 +270,8 @@
   color: #4B5563;
 }
 
-/* CONTATOS */
-.contact-item {
-  margin-bottom: 12px;
-}
-
-.contact-item strong {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color: #2D2D2D;
-}
-
-.contact-item span {
-  color: #6B7280;
-
-  font-size: 14px;
-}
-
 /* BOTÃO */
+
 button {
   width: 100%;
 
@@ -276,6 +286,7 @@ button {
   color: white;
 
   font-size: 15px;
+
   font-weight: 600;
 
   cursor: pointer;
@@ -289,28 +300,9 @@ button:hover {
   background: #5A94C7;
 }
 
-/* EMERGÊNCIA */
-.danger {
-  background: #EF4444;
-}
-
-.danger:hover {
-  background: #DC2626;
-}
-
-/* RESPONSIVO */
-@media (max-width: 768px) {
-
-  .grid {
-    columns: 1;
-  }
-
-}
-
-/* CARD AGENDA ANUAL */
+/* AGENDA ANUAL */
 
 .agenda-anual-card {
-
   display: flex;
 
   align-items: center;
@@ -318,22 +310,62 @@ button:hover {
   justify-content: space-between;
 
   gap: 18px;
-
 }
 
-/* ÍCONE */
+.agenda-anual-card .conteudo {
+  flex: 1;
+}
 
-.agenda-anual-card .icone {
+/* MINI CALENDÁRIO */
 
-  width: 70px;
+.mini-calendario {
+  width: 100%;
 
-  height: 70px;
+  max-width: 550px;
 
-  min-width: 70px;
+  background: white;
 
   border-radius: 18px;
 
-  background: #E8F1FB;
+  overflow: hidden;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* MÊS */
+
+.mes {
+  background: #6FA8DC;
+
+  color: white;
+
+  text-align: center;
+
+  padding: 10px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+/* DIAS */
+
+.dias-grid {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 10px;
+
+  padding: 18px;
+}
+
+.dias-grid span {
+  width: 28px;
+
+  height: 28px;
 
   display: flex;
 
@@ -341,37 +373,49 @@ button:hover {
 
   justify-content: center;
 
-  font-size: 32px;
+  border-radius: 50%;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #1F2937;
 }
 
-/* CONTEÚDO */
+.dias-grid span.hoje {
+  background: #6FA8DC;
 
-.agenda-anual-card .conteudo {
-
-  flex: 1;
-}
-
-.agenda-anual-card .conteudo h2 {
-
-  margin-bottom: 6px;
-}
-
-.agenda-anual-card .conteudo p {
-
-  font-size: 14px;
-
-  color: #6B7280;
-
-  line-height: 1.5;
+  color: white;
 }
 
 /* SETA */
 
 .agenda-anual-card .seta {
-
   font-size: 30px;
 
   font-weight: bold;
 
   color: #6FA8DC;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+  .layout {
+    padding: 0 16px 20px 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "medicacao"
+      "agenda"
+      "memoria"
+      "anual";
+
+    column-gap: 0;
+
+    row-gap: 20px;
+  }
 }

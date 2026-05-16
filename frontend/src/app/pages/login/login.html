@@ -2,18 +2,132 @@
 
   <h1>Login</h1>
 
-  <div class="form-group">
-    <label>Email</label>
-    <input type="email" [(ngModel)]="email">
+  <p class="subtitle">
+    Como deseja entrar?
+  </p>
+
+  <div class="tipo-login">
+
+    <button
+      type="button"
+      class="tipo-card paciente"
+      (click)="entrarPaciente()"
+    >
+      <strong>Sou Paciente</strong>
+
+      <small>
+        Entrar com reconhecimento facial
+      </small>
+    </button>
+
+    <button
+      type="button"
+      class="tipo-card cuidador"
+      (click)="mostrarLoginCuidador = true"
+    >
+      <strong>Sou Cuidador</strong>
+
+      <small>
+        Entrar com email e senha
+      </small>
+    </button>
+
   </div>
 
-  <div class="form-group">
-    <label>Senha</label>
-    <input type="password" [(ngModel)]="senha">
+  <div
+    *ngIf="mostrarLoginCuidador"
+    class="login-cuidador"
+  >
+
+    <div class="form-group">
+      <label>Email</label>
+
+      <input
+        type="email"
+        [(ngModel)]="email"
+        [class.invalid]="campoInvalido('email')"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Senha</label>
+
+      <input
+        type="password"
+        [(ngModel)]="senha"
+        [class.invalid]="campoInvalido('senha')"
+      >
+    </div>
+
+    <button
+      type="button"
+      (click)="loginCuidador()"
+    >
+      Entrar como cuidador
+    </button>
+
   </div>
 
-  <button (click)="login()">Entrar</button>
+  <a routerLink="/register">
+    Cadastrar Conta
+  </a>
 
-  <!-- 🔥 AQUI ESTÁ O LINK CORRETO -->
-<a routerLink="/register">Cadastrar Conta</a>
+</div>
+
+<div
+  *ngIf="mostrarFace"
+  class="face-overlay"
+>
+
+  <div
+    class="registro-facial cair"
+    [class.erro-face]="erroReconhecimento"
+  >
+
+    <h2>Login Facial</h2>
+
+    <p>
+      Posicione seu rosto na câmera para entrar
+    </p>
+
+    <video
+      #video
+      autoplay
+      muted
+      playsinline
+    ></video>
+
+    <canvas
+      #canvas
+      style="display:none;"
+    ></canvas>
+
+    <div class="face-buttons">
+
+      <button
+        type="button"
+        (click)="capturarRosto()"
+      >
+        Reconhecer rosto
+      </button>
+
+      <button
+        type="button"
+        class="btn-cancelar"
+        (click)="fecharFace()"
+      >
+        Cancelar
+      </button>
+
+    </div>
+
+    <img
+      *ngIf="fotoCapturada"
+      [src]="fotoCapturada"
+      class="foto-preview"
+      alt="Foto capturada"
+    >
+
+  </div>
+
 </div>

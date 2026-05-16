@@ -1,7 +1,17 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+
+import {
+  Router,
+  RouterModule
+} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,53 +19,232 @@ import { Router, RouterModule } from '@angular/router';
   imports: [
     FormsModule,
     CommonModule,
-    RouterModule // 🔥 necessário pro routerLink funcionar
+    RouterModule
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
-  
-  
 })
 export class RegisterComponent {
 
   tipo = '';
+
   nome = '';
+
   email = '';
+
   senha = '';
+
   cpf = '';
-  crm = '';
-  especialidade = '';
+
+  fotoCapturada = '';
+
+  mostrarFace = false;
 
   camposInvalidos: string[] = [];
 
+  streamCamera?: MediaStream;
+
+  @ViewChild('video')
+  videoRef!: ElementRef<HTMLVideoElement>;
+
+  @ViewChild('canvas')
+  canvasRef!: ElementRef<HTMLCanvasElement>;
+
   constructor(private router: Router) {}
 
-  cadastrar() {
+  /* SOMENTE NÚMEROS */
+  somenteNumero(event: KeyboardEvent) {
+
+    const tecla = event.key;
+
+    // permite apenas números
+    if (!/[0-9]/.test(tecla)) {
+      event.preventDefault();
+    }
+  }
+
+  /* FORMATAR CPF */
+  formatarCPF(event: Event) {
+
+    const input =
+      event.target as HTMLInputElement;
+
+    // remove tudo que não for número
+    let valor =
+      input.value.replace(/\D/g, '');
+
+    // limita 11 números
+    valor = valor.substring(0, 11);
+
+    // CPF
+    valor = valor.replace(
+      /(\d{3})(\d)/,
+      '$1.$2'
+    );
+
+    valor = valor.replace(
+      /(\d{3})(\d)/,
+      '$1.$2'
+    );
+
+    valor = valor.replace(
+      /(\d{3})(\d{1,2})$/,
+      '$1-$2'
+    );
+
+    this.cpf = valor;
+  }
+
+  async iniciarCamera() {
+
+    this.streamCamera =
+      await navigator.mediaDevices
+        .getUserMedia({
+          video: true
+        });
+
+    this.videoRef.nativeElement.srcObject =
+      this.streamCamera;
+  }
+
+  capturarRosto() {
+
+    const video =
+      this.videoRef.nativeElement;
+
+    const canvas =
+      this.canvasRef.nativeElement;
+
+    const context =
+      canvas.getContext('2d');
+
+    if (!context) return;
+
+    canvas.width = video.videoWidth;
+
+    canvas.height = video.videoHeight;
+
+    context.drawImage(
+      video,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+    this.fotoCapturada =
+      canvas.toDataURL('image/png');
+  }
+
+  continuarCadastro() {
 
     this.camposInvalidos = [];
 
-    if (!this.tipo) this.camposInvalidos.push('tipo');
-    if (!this.nome) this.camposInvalidos.push('nome');
-    if (!this.email) this.camposInvalidos.push('email');
-    if (!this.senha) this.camposInvalidos.push('senha');
+    if (!this.tipo) {
+      this.camposInvalidos.push('tipo');
+    }
 
-    if (this.tipo === 'cuidador' && !this.cpf) {
+    if (!this.nome) {
+      this.camposInvalidos.push('nome');
+    }
+
+    if (!this.email) {
+      this.camposInvalidos.push('email');
+    }
+
+    if (!this.senha) {
+      this.camposInvalidos.push('senha');
+    }
+
+    // CPF COMPLETO
+    if (
+      !this.cpf ||
+      this.cpf.length < 14
+    ) {
       this.camposInvalidos.push('cpf');
     }
 
-    if (this.tipo === 'medico') {
-      if (!this.crm) this.camposInvalidos.push('crm');
-      if (!this.especialidade) this.camposInvalidos.push('especialidade');
+    if (
+      this.camposInvalidos.length > 0
+    ) {
+      return;
     }
 
-    // ❌ se tiver erro → não continua
-    if (this.camposInvalidos.length > 0) return;
+    // PACIENTE → abre câmera
+    if (this.tipo === 'paciente') {
 
-    // ✅ sucesso → volta pro login
+      this.mostrarFace = true;
+
+      setTimeout(() => {
+        this.iniciarCamera();
+      }, 200);
+
+      return;
+    }
+
+    // CUIDADOR → cadastro direto
+    if (this.tipo === 'cuidador') {
+      this.cadastrar();
+    }
+  }
+
+  cadastrar() {
+
+    // paciente precisa de foto
+    if (
+      this.tipo === 'paciente' &&
+      !this.fotoCapturada
+    ) {
+
+      alert(
+        'Capture uma foto facial antes de finalizar.'
+      );
+
+      return;
+    }
+
+    const usuario = {
+
+      tipo: this.tipo,
+
+      nome: this.nome,
+
+      email: this.email,
+
+      senha: this.senha,
+
+      cpf: this.cpf,
+
+      foto: this.fotoCapturada
+    };
+
+    localStorage.setItem(
+      'usuarioCadastrado',
+      JSON.stringify(usuario)
+    );
+
+    this.pararCamera();
+
     this.router.navigate(['/']);
   }
 
-  campoInvalido(campo: string): boolean {
-    return this.camposInvalidos.includes(campo);
+  pararCamera() {
+
+    if (this.streamCamera) {
+
+      this.streamCamera
+        .getTracks()
+        .forEach(track => {
+          track.stop();
+        });
+    }
+  }
+
+  campoInvalido(
+    campo: string
+  ): boolean {
+
+    return this.camposInvalidos
+      .includes(campo);
   }
 }
