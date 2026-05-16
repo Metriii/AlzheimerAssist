@@ -1,0 +1,168 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #F4F6F8;
+
+  overflow: hidden;
+}
+
+/* CONTAINER */
+
+.container {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+
+  transition: 0.3s;
+}
+
+/* SUCESSO */
+
+.container.entrando {
+  animation:
+    entrarPaciente 0.9s ease forwards;
+}
+
+/* ERRO */
+
+.container.erro-login {
+  animation:
+    tremerErro 0.45s ease;
+}
+
+/* ANIMAÇÃO SUCESSO */
+
+@keyframes entrarPaciente {
+
+  0% {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      scale(1);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateX(100%)
+      scale(0.96);
+  }
+}
+
+/* ANIMAÇÃO ERRO */
+
+@keyframes tremerErro {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-12px);
+  }
+
+  40% {
+    transform: translateX(12px);
+  }
+
+  60% {
+    transform: translateX(-8px);
+  }
+
+  80% {
+    transform: translateX(8px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* CARD */
+
+.card {
+  width: 100%;
+  max-width: 620px;
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 32px;
+
+  text-align: center;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,0.08);
+}
+
+/* TITULO */
+
+h1 {
+  font-size: 32px;
+
+  color: #1F2937;
+
+  margin-bottom: 16px;
+}
+
+/* TEXTO */
+
+p {
+  color: #6B7280;
+
+  margin-bottom: 16px;
+}
+
+/* VIDEO */
+
+video {
+  width: 100%;
+  max-width: 520px;
+
+  height: 380px;
+
+  border-radius: 20px;
+
+  background: #111827;
+
+  object-fit: cover;
+}
+
+/* BOTAO */
+
+button {
+  width: 100%;
+
+  height: 58px;
+
+  margin-top: 24px;
+
+  border: none;
+  border-radius: 18px;
+
+  background: #16A34A;
+
+  color: white;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+
+  opacity: 0.95;
+}

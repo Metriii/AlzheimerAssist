@@ -1,0 +1,27 @@
+<div
+  class="container"
+  [class.entrando]="sucesso"
+  [class.erro-login]="erro">
+
+  <div class="card">
+
+    <h1>Login Facial</h1>
+
+    <p *ngIf="carregando">
+      Carregando câmera...
+    </p>
+
+    <video
+      #video
+      autoplay
+      muted
+      playsinline>
+    </video>
+
+    <button (click)="loginFacial()">
+      Entrar com rosto
+    </button>
+
+  </div>
+
+</div>

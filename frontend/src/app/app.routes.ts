@@ -15,6 +15,9 @@ import { Jassociacao } from './pages/jassociacao/jassociacao';
 import { AgendaAnual } from './pages/agenda-anual/agenda-anual';
 import { PacienteAgenda } from './pages/paciente-agenda/paciente-agenda';
 import { CuidadorAgenda } from './pages/cuidador-agenda/cuidador-agenda';
+import { ReconhecimentoFacial } from './pages/reconhecimento-facial/reconhecimento-facial';
+import { CadastroFacial } from './pages/cadastro-facial/cadastro-facial';
+import { LoginFacial } from './pages/login-facial/login-facial';
 
 
 export const routes: Routes = [
@@ -36,7 +39,10 @@ export const routes: Routes = [
   { path: 'associacao', component: Jassociacao },
 
   { path: 'agenda-anual', component: AgendaAnual },
-    {path: 'paciente-agenda', component: PacienteAgenda},
-  {path: 'cuidador-agenda', component: CuidadorAgenda},
+  { path: 'paciente-agenda', component: PacienteAgenda},
+  { path: 'cuidador-agenda', component: CuidadorAgenda},
+  { path: 'reconhecimento-facial', component: ReconhecimentoFacial},
+  { path: 'cadastro-facial', component: CadastroFacial},
+  { path: 'login-facial', component: LoginFacial},
 
 ];
