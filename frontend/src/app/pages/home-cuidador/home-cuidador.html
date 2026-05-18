@@ -64,24 +64,129 @@
       </button>
     </div>
 
-    <!-- MEDICAÇÕES -->
-    <div class="card">
-      <h2>💊 Medicações</h2>
+<!-- MEDICAÇÕES -->
+<!-- MEDICAÇÕES -->
+<div class="card">
 
-      <div class="item">
-        <span>Donepezila</span>
-        <span>08:00</span>
-      </div>
+  <h2>
+    💊 Medicações
+  </h2>
 
-      <div class="item">
-        <span>Memantina</span>
-        <span>14:00</span>
-      </div>
+  <div
+    class="item item-medicacao"
+    *ngFor="let med of medicacoes; let i = index"
+  >
 
-      <button>
-        + Adicionar Medicação
-      </button>
+    <div class="med-info">
+
+      <span>
+        {{ med.nome }}
+      </span>
+
+      <span>
+        {{ med.horario }}
+      </span>
+
     </div>
+
+    <div class="acoes-medicacao">
+
+      <button
+        class="btn-editar"
+        (click)="editarMedicacao(i)"
+      >
+        ✎
+      </button>
+
+      <button
+        class="btn-remover"
+        (click)="removerMedicacao(i)"
+      >
+        X
+      </button>
+
+    </div>
+
+  </div>
+
+  <p
+    class="vazio"
+    *ngIf="medicacoes.length === 0"
+  >
+    Nenhuma medicação cadastrada.
+  </p>
+
+  <button
+    (click)="abrirModalMedicacao()"
+  >
+    + Adicionar Medicação
+  </button>
+
+</div>
+
+<!-- MODAL -->
+<div
+  class="overlay"
+  *ngIf="mostrarModalMedicacao"
+>
+
+  <div class="modal-medicacao">
+
+    <h2>
+      {{
+        editandoIndex !== null
+          ? 'Editar Medicação'
+          : 'Nova Medicação'
+      }}
+    </h2>
+
+    <input
+      type="text"
+      placeholder="Nome da medicação"
+      [(ngModel)]="nomeMedicacao"
+    />
+
+    <input
+      type="time"
+      [(ngModel)]="horarioMedicacao"
+    />
+
+    <label
+      class="checkbox-reset"
+      *ngIf="editandoIndex !== null"
+    >
+
+      <input
+        type="checkbox"
+        [(ngModel)]="medicacaoTomada"
+      />
+
+      Paciente já tomou esta medicação
+
+    </label>
+
+    <div class="modal-botoes">
+
+      <button
+        class="btn-cancelar"
+        (click)="fecharModalMedicacao()"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="btn-salvar"
+        (click)="salvarMedicacao()"
+      >
+        Salvar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 
     <!-- AGENDA -->
     <div class="card">

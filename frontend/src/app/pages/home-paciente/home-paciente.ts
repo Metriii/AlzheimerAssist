@@ -9,10 +9,13 @@ import { AgendaService } from '../../services/agenda.service';
 @Component({
   selector: 'app-home-paciente',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './home-paciente.html',
   styleUrl: './home-paciente.css',
 })
+
 export class HomePacienteComponent {
 
   nome: string = '';
@@ -22,6 +25,8 @@ export class HomePacienteComponent {
   tarefas: any[] = [];
 
   agendaAnual: any[] = [];
+
+  medicacoes: any[] = [];
 
   mesAtual: string = '';
 
@@ -36,9 +41,26 @@ export class HomePacienteComponent {
 
   ngOnInit(): void {
 
+    this.carregarUsuario();
+
+    this.carregarDataAtual();
+
+    this.carregarMiniCalendario();
+
+    this.load();
+
+    setInterval(() => {
+
+      this.load();
+
+    }, 500);
+  }
+
+  carregarUsuario() {
+
     const usuarioSalvo =
       localStorage.getItem(
-        'usuarioCadastrado'
+        'usuarioLogado'
       );
 
     if (usuarioSalvo) {
@@ -47,7 +69,12 @@ export class HomePacienteComponent {
         JSON.parse(usuarioSalvo);
 
       this.nome = usuario.nome;
+
     }
+
+  }
+
+  carregarDataAtual() {
 
     const hoje = new Date();
 
@@ -61,15 +88,55 @@ export class HomePacienteComponent {
         }
       );
 
-    this.carregarMiniCalendario();
+  }
 
-    this.load();
+  private getChaveMedicacoes(): string {
 
-    setInterval(() => {
+    return 'medicacoesPaciente';
 
-      this.load();
+  }
 
-    }, 500);
+  carregarMedicacoes() {
+
+    const medicacoesSalvas =
+      localStorage.getItem(
+        this.getChaveMedicacoes()
+      );
+
+    this.medicacoes =
+      medicacoesSalvas
+        ? JSON.parse(medicacoesSalvas)
+        : [];
+
+    console.log(
+      'MEDICAÇÕES PACIENTE:',
+      this.medicacoes
+    );
+
+  }
+
+  salvarMedicacoes() {
+
+    localStorage.setItem(
+      this.getChaveMedicacoes(),
+      JSON.stringify(this.medicacoes)
+    );
+
+  }
+
+  marcarComoTomado(index: number) {
+
+    if (
+      this.medicacoes[index] &&
+      !this.medicacoes[index].tomado
+    ) {
+
+      this.medicacoes[index].tomado = true;
+
+      this.salvarMedicacoes();
+
+    }
+
   }
 
   carregarMiniCalendario(): void {
@@ -119,12 +186,15 @@ export class HomePacienteComponent {
     this.tarefas =
       this.agenda.load();
 
+    this.carregarMedicacoes();
+
     this.agendaAnual =
       JSON.parse(
         localStorage.getItem(
           'agendaAnual'
         ) || '[]'
       );
+
   }
 
   irParaAtividade() {
@@ -132,6 +202,7 @@ export class HomePacienteComponent {
     this.router.navigate([
       '/atividade-memoria'
     ]);
+
   }
 
   irParaAgendaAnual() {
@@ -139,6 +210,7 @@ export class HomePacienteComponent {
     this.router.navigate([
       '/agenda-anual'
     ]);
+
   }
 
   abrirAgenda() {
@@ -146,6 +218,7 @@ export class HomePacienteComponent {
     this.router.navigate([
       '/paciente-agenda'
     ]);
+
   }
 
 }

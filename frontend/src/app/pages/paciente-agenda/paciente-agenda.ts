@@ -1,40 +1,43 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import {AgendaService} from '../../services/agenda.service';
+import { AgendaService } from '../../services/agenda.service';
+
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paciente-agenda',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './paciente-agenda.html',
   styleUrl: './paciente-agenda.css'
 })
-export class PacienteAgenda
-implements OnInit {
+
+export class PacienteAgenda implements OnInit {
 
   tarefas: any[] = [];
 
   constructor(
     private agenda: AgendaService,
     private cdr: ChangeDetectorRef,
-      private router: Router
-
+    private router: Router
   ) {}
 
   ngOnInit() {
 
-    // 🔥 carregar inicial
     this.load();
 
-    // 🔥 sincronização automática
     setInterval(() => {
 
       this.load();
 
-      // 🔥 força atualizar HTML
       this.cdr.detectChanges();
 
     }, 500);
@@ -46,12 +49,9 @@ implements OnInit {
     const lista =
       this.agenda.load();
 
-    this.tarefas = [...lista];
-
-    console.log(
-      'PACIENTE:',
-      this.tarefas
-    );
+    this.tarefas = [
+      ...lista
+    ];
 
   }
 
@@ -62,6 +62,7 @@ implements OnInit {
     this.load();
 
   }
+
   voltar() {
 
     this.router.navigate([

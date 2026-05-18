@@ -16,39 +16,58 @@
 
     <div class="grid">
 
-      <!-- MEDICAÇÃO -->
+  <!-- MEDICAÇÃO -->
+<div class="card">
 
-      <div class="card">
+  <div class="card-top">
 
-        <div class="card-top">
+    <h2>
+      💊 Medicação
+    </h2>
 
-          <h2>
-            💊 Medicação
-          </h2>
+  </div>
 
-          <span class="status pendente">
-            Pendente
-          </span>
+  <div
+    class="medicacao-item"
+    *ngFor="let med of medicacoes; let i = index"
+  >
 
-        </div>
+    <input
+      type="checkbox"
+      [checked]="med.tomado"
+      [disabled]="med.tomado"
+      (change)="marcarComoTomado(i)"
+    />
 
-        <div class="info">
+    <div class="info">
 
-          <strong>
-            Donepezila
-          </strong>
+      <strong>
+        {{ med.nome }}
+      </strong>
 
-          <span>
-            Horário: 08:00
-          </span>
+      <span>
+        Horário: {{ med.horario }}
+      </span>
 
-        </div>
+    </div>
 
-        <button>
-          Marcar como tomado
-        </button>
+    <span
+      class="status"
+      [class.tomado]="med.tomado"
+      [class.pendente]="!med.tomado"
+    >
 
-      </div>
+      {{
+        med.tomado
+          ? 'Tomado'
+          : 'Pendente'
+      }}
+
+    </span>
+
+  </div>
+
+</div>
 
       <!-- MEMÓRIA -->
 

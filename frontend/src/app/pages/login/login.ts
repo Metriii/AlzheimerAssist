@@ -35,6 +35,8 @@ export class LoginComponent {
 
   streamCamera?: MediaStream;
 
+  pacienteSelecionado: any = null;
+
   @ViewChild('video')
   videoRef!: ElementRef<HTMLVideoElement>;
 
@@ -43,26 +45,30 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
+  buscarUsuarios(): any[] {
+    return JSON.parse(
+      localStorage.getItem('usuariosCadastrados') || '[]'
+    );
+  }
+
   entrarPaciente() {
-    const usuarioSalvo =
-      localStorage.getItem('usuarioCadastrado');
+    const usuarios = this.buscarUsuarios();
 
-    if (!usuarioSalvo) {
-      alert('Nenhum usuário cadastrado.');
+    const paciente = usuarios.find(
+      usuario => usuario.tipo === 'paciente'
+    );
+
+    if (!paciente) {
+      alert('Nenhum paciente cadastrado.');
       return;
     }
 
-    const usuario = JSON.parse(usuarioSalvo);
-
-    if (usuario.tipo !== 'paciente') {
-      alert('Nenhum paciente cadastrado para login facial.');
-      return;
-    }
-
-    if (!usuario.foto) {
+    if (!paciente.foto) {
       alert('Paciente não possui foto facial cadastrada.');
       return;
     }
+
+    this.pacienteSelecionado = paciente;
 
     this.erroReconhecimento = false;
     this.mostrarFace = true;
@@ -83,20 +89,12 @@ export class LoginComponent {
   }
 
   capturarRosto() {
-    const usuarioSalvo =
-      localStorage.getItem('usuarioCadastrado');
-
-    if (!usuarioSalvo) {
-      alert('Nenhum paciente cadastrado.');
+    if (!this.pacienteSelecionado) {
+      alert('Nenhum paciente selecionado.');
       return;
     }
 
-    const usuario = JSON.parse(usuarioSalvo);
-
-    if (usuario.tipo !== 'paciente') {
-      alert('Nenhum paciente cadastrado para login facial.');
-      return;
-    }
+    const usuario = this.pacienteSelecionado;
 
     const video = this.videoRef.nativeElement;
     const canvas = this.canvasRef.nativeElement;
@@ -140,23 +138,41 @@ export class LoginComponent {
       return;
     }
 
+    localStorage.setItem(
+      'usuarioLogado',
+      JSON.stringify({
+        id: usuario.id,
+        tipo: usuario.tipo,
+        nome: usuario.nome,
+        email: usuario.email,
+        cpf: usuario.cpf
+      })
+    );
+
     this.pararCamera();
 
     this.router.navigate(['/home-paciente']);
   }
 
-  compararFotos(
-    fotoCadastro: string,
-    fotoLogin: string
-  ): boolean {
-    const tamanhoCadastro = fotoCadastro.length;
-    const tamanhoLogin = fotoLogin.length;
+compararFotos(
+  fotoCadastro: string,
+  fotoLogin: string
+): boolean {
 
-    const diferenca =
-      Math.abs(tamanhoCadastro - tamanhoLogin);
+  const tamanhoCadastro =
+    fotoCadastro.length;
 
-    return diferenca < 5000;
-  }
+  const tamanhoLogin =
+    fotoLogin.length;
+
+  const diferenca =
+    Math.abs(
+      tamanhoCadastro - tamanhoLogin
+    );
+
+  return diferenca < 30000;
+
+}
 
   loginCuidador() {
     this.camposInvalidos = [];
@@ -173,28 +189,30 @@ export class LoginComponent {
       return;
     }
 
-    const usuarioSalvo =
-      localStorage.getItem('usuarioCadastrado');
+    const usuarios = this.buscarUsuarios();
 
-    if (!usuarioSalvo) {
-      alert('Nenhum usuário cadastrado.');
+    const cuidador = usuarios.find(
+      usuario =>
+        usuario.tipo === 'cuidador' &&
+        usuario.email === this.email &&
+        usuario.senha === this.senha
+    );
+
+    if (!cuidador) {
+      alert('Email ou senha incorretos, ou cuidador não cadastrado.');
       return;
     }
 
-    const usuario = JSON.parse(usuarioSalvo);
-
-    if (usuario.tipo !== 'cuidador') {
-      alert('Este login é apenas para cuidador.');
-      return;
-    }
-
-    if (
-      usuario.email !== this.email ||
-      usuario.senha !== this.senha
-    ) {
-      alert('Email ou senha incorretos.');
-      return;
-    }
+    localStorage.setItem(
+      'usuarioLogado',
+      JSON.stringify({
+        id: cuidador.id,
+        tipo: cuidador.tipo,
+        nome: cuidador.nome,
+        email: cuidador.email,
+        cpf: cuidador.cpf
+      })
+    );
 
     this.router.navigate(['/home-cuidador']);
   }
@@ -203,6 +221,7 @@ export class LoginComponent {
     this.mostrarFace = false;
     this.fotoCapturada = '';
     this.erroReconhecimento = false;
+    this.pacienteSelecionado = null;
 
     this.pararCamera();
   }

@@ -32,39 +32,48 @@ export class AgendaAnual {
   eventos: any[] = [];
 
   meses = [
-
     { nome: 'Janeiro', dias: 31 },
-
     { nome: 'Fevereiro', dias: 28 },
-
     { nome: 'Março', dias: 31 },
-
     { nome: 'Abril', dias: 30 },
-
     { nome: 'Maio', dias: 31 },
-
     { nome: 'Junho', dias: 30 },
-
     { nome: 'Julho', dias: 31 },
-
     { nome: 'Agosto', dias: 31 },
-
     { nome: 'Setembro', dias: 30 },
-
     { nome: 'Outubro', dias: 31 },
-
     { nome: 'Novembro', dias: 30 },
-
     { nome: 'Dezembro', dias: 31 }
-
   ];
 
   constructor(
     private router: Router
   ) {
-
     this.carregarEventos();
+  }
 
+  private getChaveEventos(): string {
+
+    const usuarioLogado = JSON.parse(
+      localStorage.getItem('usuarioLogado') || 'null'
+    );
+
+    if (
+      !usuarioLogado ||
+      !usuarioLogado.email ||
+      !usuarioLogado.cpf
+    ) {
+      return 'eventosAgendaAnual_semUsuario';
+    }
+
+    const emailLimpo = usuarioLogado.email
+      .trim()
+      .toLowerCase();
+
+    const cpfLimpo = usuarioLogado.cpf
+      .replace(/\D/g, '');
+
+    return `eventosAgendaAnual_${emailLimpo}_${cpfLimpo}`;
   }
 
   gerarDias(): (number | null)[] {
@@ -81,9 +90,7 @@ export class AgendaAnual {
     const dias: (number | null)[] = [];
 
     for (let i = 0; i < primeiroDiaSemana; i++) {
-
       dias.push(null);
-
     }
 
     for (
@@ -91,46 +98,31 @@ export class AgendaAnual {
       dia <= quantidadeDias;
       dia++
     ) {
-
       dias.push(dia);
-
     }
 
     return dias;
-
   }
 
   abrirCaixa(dia: number) {
-
     this.diaSelecionado = dia;
-
     this.tituloEvento = '';
-
     this.descricaoEvento = '';
-
   }
 
   fecharCaixa() {
-
     this.diaSelecionado = null;
-
     this.tituloEvento = '';
-
     this.descricaoEvento = '';
-
   }
 
   salvarEvento() {
 
-    if (
-      this.diaSelecionado === null
-    ) {
+    if (this.diaSelecionado === null) {
       return;
     }
 
-    if (
-      this.tituloEvento.trim() === ''
-    ) {
+    if (this.tituloEvento.trim() === '') {
       return;
     }
 
@@ -139,51 +131,34 @@ export class AgendaAnual {
     );
 
     this.eventos.push({
-
       chave,
-
       dia: this.diaSelecionado,
-
       mes: this.mesAtual,
-
       ano: this.ano,
-
       titulo: this.tituloEvento,
-
       descricao: this.descricaoEvento
-
     });
 
     localStorage.setItem(
-
-      'eventosAgendaAnual',
-
+      this.getChaveEventos(),
       JSON.stringify(this.eventos)
-
     );
 
     this.tituloEvento = '';
-
     this.descricaoEvento = '';
-
   }
 
   buscarEventos(dia: number) {
 
     if (dia === null) {
-
       return [];
-
     }
 
     const chave = this.criarChave(dia);
 
     return this.eventos.filter(
-
       e => e.chave === chave
-
     );
-
   }
 
   apagarEvento(
@@ -205,83 +180,50 @@ export class AgendaAnual {
       );
 
     localStorage.setItem(
-
-      'eventosAgendaAnual',
-
+      this.getChaveEventos(),
       JSON.stringify(this.eventos)
-
     );
-
   }
 
-  criarChave(
-    dia: number
-  ): string {
-
-    return `
-      ${this.ano}-
-      ${this.mesAtual + 1}-
-      ${dia}
-    `;
-
+  criarChave(dia: number): string {
+    return `${this.ano}-${this.mesAtual + 1}-${dia}`;
   }
 
   carregarEventos() {
-
     this.eventos = JSON.parse(
-
       localStorage.getItem(
-        'eventosAgendaAnual'
+        this.getChaveEventos()
       ) || '[]'
-
     );
-
   }
 
   proximoMes() {
 
     if (this.mesAtual < 11) {
-
       this.mesAtual++;
-
     } else {
-
       this.mesAtual = 0;
-
       this.ano++;
-
     }
 
     this.fecharCaixa();
-
   }
 
   mesAnterior() {
 
     if (this.mesAtual > 0) {
-
       this.mesAtual--;
-
     } else {
-
       this.mesAtual = 11;
-
       this.ano--;
-
     }
 
     this.fecharCaixa();
-
   }
 
   voltar() {
-
     this.router.navigate([
-
       '/home-paciente'
-
     ]);
-
   }
-
 }
