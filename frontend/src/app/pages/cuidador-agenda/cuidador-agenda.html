@@ -1,70 +1,83 @@
-<div class="card-cuidador">
+<div class="layout">
 
-  <h2>Agenda do Cuidador</h2>
+  <button
+    class="btn-voltar"
+    (click)="voltar()"
+  >
+    Voltar
+  </button>
 
-  <div class="form-group">
+  <div class="card-cuidador">
 
-    <input
-      type="text"
-      [(ngModel)]="titulo"
-      placeholder="Título da tarefa"
-    />
+    <h2>
+      Agenda do Paciente
+    </h2>
 
-    <input
-      type="time"
-      [(ngModel)]="horario"
-    />
+    <div class="form-group">
 
-    <button
-      class="btn-add"
-      (click)="enviar()"
-    >
-      Adicionar
-    </button>
+      <input
+        type="text"
+        placeholder="Título da tarefa"
+        [(ngModel)]="titulo"
+      />
 
-  </div>
+      <input
+        type="time"
+        [(ngModel)]="horario"
+      />
 
-  <ul class="lista-tarefas">
+      <button
+        class="btn-add"
+        (click)="adicionar()"
+      >
+        Adicionar
+      </button>
 
-    <li
-      *ngFor="let t of tarefas; let i = index"
-      class="tarefa-card"
-    >
+    </div>
 
-      <div class="tarefa-info">
+    <ul class="lista-tarefas">
 
-        <input
-          type="checkbox"
-          [checked]="t.feito"
-          (change)="toggle(i)"
-        />
+      <li
+        *ngFor="let t of tarefas; let i = index"
+        class="tarefa-card"
+      >
 
-        <div
-          class="tarefa-texto"
-          [class.feito]="t.feito"
-        >
+        <div class="tarefa-info">
 
-          <span class="titulo">
-            {{ t.titulo }}
-          </span>
+          <input
+            type="checkbox"
+            [checked]="t.feito"
+            (change)="toggle(i)"
+          />
 
-          <span class="horario">
-            {{ t.horario }}
-          </span>
+          <div
+            class="tarefa-texto"
+            [class.feito]="t.feito"
+          >
+
+            <span class="titulo">
+              {{ t.titulo }}
+            </span>
+
+            <span class="horario">
+              {{ t.horario }}
+            </span>
+
+          </div>
 
         </div>
 
-      </div>
+        <button
+          class="btn-del"
+          (click)="excluir(i)"
+        >
+          X
+        </button>
 
-      <button
-        class="btn-del"
-        (click)="excluir(i)"
-      >
-        ❌
-      </button>
+      </li>
 
-    </li>
+    </ul>
 
-  </ul>
+  </div>
 
 </div>

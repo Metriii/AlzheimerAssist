@@ -4,12 +4,17 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
 
+import { RouterModule } from '@angular/router';
+
+import { AgendaService } from '../../services/agenda.service';
+
 @Component({
   selector: 'app-home-cuidador',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule,
   ],
   templateUrl: './home-cuidador.html',
   styleUrl: './home-cuidador.css',
@@ -18,6 +23,14 @@ import { FormsModule } from '@angular/forms';
 export class HomeCuidador {
 
   medicacoes: any[] = [];
+
+  atividades: any[] = [];
+
+  mesAtual = '';
+
+  diaAtual: number = new Date().getDate();
+
+  diasDoMes: number[] = [];
 
   mostrarModalMedicacao = false;
 
@@ -29,16 +42,30 @@ export class HomeCuidador {
 
   editandoIndex: number | null = null;
 
+  constructor(
+    private agenda: AgendaService
+  ) {}
+
   ngOnInit(): void {
 
     this.carregarMedicacoes();
 
+    this.carregarAtividades();
+
+    this.carregarMiniCalendario();
+
+    setInterval(() => {
+
+      this.carregarAtividades();
+
+      this.carregarMedicacoes();
+
+    }, 500);
+
   }
 
   private getChaveMedicacoes(): string {
-
     return 'medicacoesPaciente';
-
   }
 
   carregarMedicacoes() {
@@ -94,11 +121,8 @@ export class HomeCuidador {
       this.nomeMedicacao.trim() === '' ||
       this.horarioMedicacao.trim() === ''
     ) {
-
       alert('Preencha o nome e o horário.');
-
       return;
-
     }
 
     if (this.editandoIndex !== null) {
@@ -153,6 +177,56 @@ export class HomeCuidador {
     this.medicacoes.splice(index, 1);
 
     this.salvarListaMedicacoes();
+
+  }
+
+  carregarAtividades() {
+
+    this.atividades =
+      this.agenda.load();
+
+  }
+
+  carregarMiniCalendario(): void {
+
+    const hoje = new Date();
+
+    const nomesMeses = [
+      'JANEIRO',
+      'FEVEREIRO',
+      'MARÇO',
+      'ABRIL',
+      'MAIO',
+      'JUNHO',
+      'JULHO',
+      'AGOSTO',
+      'SETEMBRO',
+      'OUTUBRO',
+      'NOVEMBRO',
+      'DEZEMBRO'
+    ];
+
+    const mes =
+      hoje.getMonth();
+
+    const ano =
+      hoje.getFullYear();
+
+    this.mesAtual =
+      nomesMeses[mes];
+
+    const totalDias =
+      new Date(
+        ano,
+        mes + 1,
+        0
+      ).getDate();
+
+    this.diasDoMes =
+      Array.from(
+        { length: totalDias },
+        (_, i) => i + 1
+      );
 
   }
 

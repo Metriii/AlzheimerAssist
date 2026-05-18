@@ -49,13 +49,15 @@ export class AgendaAnual {
   constructor(
     private router: Router
   ) {
+
     this.carregarEventos();
+
   }
 
   private getChaveEventos(): string {
 
     const usuarioLogado = JSON.parse(
-      localStorage.getItem('usuarioLogado') || 'null'
+      sessionStorage.getItem('usuarioLogado') || 'null'
     );
 
     if (
@@ -63,17 +65,22 @@ export class AgendaAnual {
       !usuarioLogado.email ||
       !usuarioLogado.cpf
     ) {
+
       return 'eventosAgendaAnual_semUsuario';
+
     }
 
-    const emailLimpo = usuarioLogado.email
-      .trim()
-      .toLowerCase();
+    const emailLimpo =
+      usuarioLogado.email
+        .trim()
+        .toLowerCase();
 
-    const cpfLimpo = usuarioLogado.cpf
-      .replace(/\D/g, '');
+    const cpfLimpo =
+      usuarioLogado.cpf
+        .replace(/\D/g, '');
 
     return `eventosAgendaAnual_${emailLimpo}_${cpfLimpo}`;
+
   }
 
   gerarDias(): (number | null)[] {
@@ -90,7 +97,9 @@ export class AgendaAnual {
     const dias: (number | null)[] = [];
 
     for (let i = 0; i < primeiroDiaSemana; i++) {
+
       dias.push(null);
+
     }
 
     for (
@@ -98,22 +107,33 @@ export class AgendaAnual {
       dia <= quantidadeDias;
       dia++
     ) {
+
       dias.push(dia);
+
     }
 
     return dias;
+
   }
 
   abrirCaixa(dia: number) {
+
     this.diaSelecionado = dia;
+
     this.tituloEvento = '';
+
     this.descricaoEvento = '';
+
   }
 
   fecharCaixa() {
+
     this.diaSelecionado = null;
+
     this.tituloEvento = '';
+
     this.descricaoEvento = '';
+
   }
 
   salvarEvento() {
@@ -126,9 +146,8 @@ export class AgendaAnual {
       return;
     }
 
-    const chave = this.criarChave(
-      this.diaSelecionado
-    );
+    const chave =
+      this.criarChave(this.diaSelecionado);
 
     this.eventos.push({
       chave,
@@ -145,20 +164,24 @@ export class AgendaAnual {
     );
 
     this.tituloEvento = '';
+
     this.descricaoEvento = '';
+
   }
 
-  buscarEventos(dia: number) {
+  buscarEventos(dia: number | null) {
 
     if (dia === null) {
       return [];
     }
 
-    const chave = this.criarChave(dia);
+    const chave =
+      this.criarChave(dia);
 
     return this.eventos.filter(
       e => e.chave === chave
     );
+
   }
 
   apagarEvento(
@@ -183,47 +206,81 @@ export class AgendaAnual {
       this.getChaveEventos(),
       JSON.stringify(this.eventos)
     );
+
   }
 
   criarChave(dia: number): string {
+
     return `${this.ano}-${this.mesAtual + 1}-${dia}`;
+
   }
 
   carregarEventos() {
+
     this.eventos = JSON.parse(
       localStorage.getItem(
         this.getChaveEventos()
       ) || '[]'
     );
+
   }
 
   proximoMes() {
 
     if (this.mesAtual < 11) {
+
       this.mesAtual++;
+
     } else {
+
       this.mesAtual = 0;
+
       this.ano++;
+
     }
 
     this.fecharCaixa();
+
   }
 
   mesAnterior() {
 
     if (this.mesAtual > 0) {
+
       this.mesAtual--;
+
     } else {
+
       this.mesAtual = 11;
+
       this.ano--;
+
     }
 
     this.fecharCaixa();
+
   }
 
   voltar() {
+
+    const usuarioLogado = JSON.parse(
+      sessionStorage.getItem('usuarioLogado') || '{}'
+    );
+
+    if (usuarioLogado.tipo === 'cuidador') {
+
+      this.router.navigate([
+        '/home-cuidador'
+      ]);
+
+      return;
+
+    }
+
     this.router.navigate([
       '/home-paciente'
     ]);
+
   }
+
 }

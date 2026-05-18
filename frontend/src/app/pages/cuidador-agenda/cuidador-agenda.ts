@@ -1,10 +1,12 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
-import { AgendaService} from '../../services/agenda.service';
+import { Router } from '@angular/router';
+
+import { AgendaService } from '../../services/agenda.service';
 
 @Component({
   selector: 'app-cuidador-agenda',
@@ -16,56 +18,54 @@ import { AgendaService} from '../../services/agenda.service';
   templateUrl: './cuidador-agenda.html',
   styleUrl: './cuidador-agenda.css'
 })
-export class CuidadorAgenda
-implements OnInit {
+
+export class CuidadorAgenda implements OnInit {
 
   titulo = '';
+
   horario = '';
 
   tarefas: any[] = [];
 
   constructor(
     private agenda: AgendaService,
-    private cdr: ChangeDetectorRef
+    private router: Router
   ) {}
 
   ngOnInit() {
 
-    // 🔥 carregar inicial
     this.load();
-
-    // 🔥 sincronização automática
-    setInterval(() => {
-
-      this.load();
-
-      // 🔥 força atualizar HTML
-      this.cdr.detectChanges();
-
-    }, 500);
 
   }
 
   load() {
 
-    const lista =
+    this.tarefas =
       this.agenda.load();
-
-    this.tarefas = [...lista];
 
   }
 
-  enviar() {
+  adicionar() {
+
+    if (
+      this.titulo.trim() === '' ||
+      this.horario.trim() === ''
+    ) {
+      alert('Preencha o título e o horário.');
+      return;
+    }
 
     this.agenda.salvar(
       this.titulo,
       this.horario
     );
 
+    this.titulo = '';
+
+    this.horario = '';
+
     this.load();
 
-    this.titulo = '';
-    this.horario = '';
   }
 
   excluir(index: number) {
@@ -81,6 +81,14 @@ implements OnInit {
     this.agenda.toggleFeito(index);
 
     this.load();
+
+  }
+
+  voltar() {
+
+    this.router.navigate([
+      '/home-cuidador'
+    ]);
 
   }
 

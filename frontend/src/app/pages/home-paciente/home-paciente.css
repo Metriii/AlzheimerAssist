@@ -101,11 +101,17 @@
 
   border-radius: 16px;
 
-  padding: 32px;
+  padding: 24px 32px 32px 32px;
 
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
 
   cursor: pointer;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-start;
 
   transition:
     transform 0.2s ease,
@@ -125,7 +131,7 @@
 .card h2 {
   font-size: 28px;
 
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 
   color: #2D2D2D;
 }
@@ -305,7 +311,7 @@ button:hover {
 .agenda-anual-card {
   display: flex;
 
-  align-items: center;
+  align-items: flex-start;
 
   justify-content: space-between;
 
@@ -314,6 +320,12 @@ button:hover {
 
 .agenda-anual-card .conteudo {
   flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-start;
 }
 
 /* MINI CALENDÁRIO */
@@ -328,6 +340,8 @@ button:hover {
   border-radius: 18px;
 
   overflow: hidden;
+
+  margin-top: 4px;
 
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
@@ -401,6 +415,7 @@ button:hover {
 /* RESPONSIVO */
 
 @media (max-width: 768px) {
+
   .layout {
     padding: 0 16px 20px 16px;
   }
@@ -418,7 +433,9 @@ button:hover {
 
     row-gap: 20px;
   }
+
 }
+
 /* MEDICAÇÕES */
 
 .medicacao-item {

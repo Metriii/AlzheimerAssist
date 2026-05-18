@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 import { AgendaService } from '../../services/agenda.service';
 
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-paciente-agenda',

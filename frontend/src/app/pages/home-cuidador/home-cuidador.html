@@ -2,11 +2,15 @@
 
   <!-- BOAS-VINDAS -->
   <div class="welcome">
-    <h1>Olá, Cuidador 👋</h1>
+
+    <h1>
+      Olá, Cuidador 👋
+    </h1>
 
     <p>
       Aqui está o resumo diário do paciente!
     </p>
+
   </div>
 
   <!-- GRID -->
@@ -14,11 +18,21 @@
 
     <!-- GEOLOCALIZAÇÃO -->
     <div class="card">
-      <h2>📍 Geolocalização</h2>
+
+      <h2>
+        📍 Geolocalização
+      </h2>
 
       <div class="item">
-        <span>Status</span>
-        <span class="status ok">Zona Segura</span>
+
+        <span>
+          Status
+        </span>
+
+        <span class="status ok">
+          Zona Segura
+        </span>
+
       </div>
 
       <div class="item-col">
@@ -28,103 +42,209 @@
       <div class="item-col">
         Zona segura ativa
       </div>
+
     </div>
 
-    <!-- CHECKLIST -->
-    <div class="card">
-      <h2>✅ Atividades do Dia</h2>
+    <!-- AGENDA DO DIA -->
+    <div
+      class="card agenda-full"
+      routerLink="/cuidador-agenda"
+    >
 
-      <div class="check-item">
-        <input type="checkbox">
-        <label>Alimentou</label>
+      <h2>
+        📅 Agenda do dia
+      </h2>
+
+      <div class="agenda-list">
+
+        <div
+          class="agenda-item"
+          *ngFor="let atividade of atividades"
+        >
+
+          <p>
+
+            <span *ngIf="atividade.feito">
+              ✅
+            </span>
+
+            <span *ngIf="!atividade.feito">
+              ⏳
+            </span>
+
+            {{ atividade.titulo }} - {{ atividade.horario }}
+
+          </p>
+
+        </div>
+
+        <div
+          class="agenda-item"
+          *ngIf="atividades.length === 0"
+        >
+
+          <p>
+            Nenhuma tarefa cadastrada hoje.
+          </p>
+
+        </div>
+
       </div>
 
-      <div class="check-item">
-        <input type="checkbox">
-        <label>Tomou banho</label>
-      </div>
-
-      <div class="check-item">
-        <input type="checkbox">
-        <label>Tomou remédio</label>
-      </div>
-
-      <div class="check-item">
-        <input type="checkbox">
-        <label>Exercício Cognitivo Diário</label>
-      </div>
-
-      <div class="check-item">
-        <input type="checkbox">
-        <label>Hidratação</label>
-      </div>
-
-      <button>
+      <button
+        routerLink="/cuidador-agenda"
+        (click)="$event.stopPropagation()"
+      >
         Adicionar Novas Atividades
       </button>
-    </div>
-
-<!-- MEDICAÇÕES -->
-<!-- MEDICAÇÕES -->
-<div class="card">
-
-  <h2>
-    💊 Medicações
-  </h2>
-
-  <div
-    class="item item-medicacao"
-    *ngFor="let med of medicacoes; let i = index"
-  >
-
-    <div class="med-info">
-
-      <span>
-        {{ med.nome }}
-      </span>
-
-      <span>
-        {{ med.horario }}
-      </span>
 
     </div>
 
-    <div class="acoes-medicacao">
+    <!-- MEDICAÇÕES -->
+    <div
+      class="card agenda-full"
+      (click)="abrirModalMedicacao()"
+    >
+
+      <h2>
+        💊 Medicações
+      </h2>
+
+      <div
+        class="item item-medicacao"
+        *ngFor="let med of medicacoes; let i = index"
+      >
+
+        <div class="med-info">
+
+          <span>
+            {{ med.nome }}
+          </span>
+
+          <span>
+            {{ med.horario }}
+          </span>
+
+        </div>
+
+        <div class="acoes-medicacao">
+
+          <button
+            class="btn-editar"
+            (click)="editarMedicacao(i); $event.stopPropagation()"
+          >
+            ✎
+          </button>
+
+          <button
+            class="btn-remover"
+            (click)="removerMedicacao(i); $event.stopPropagation()"
+          >
+            X
+          </button>
+
+        </div>
+
+      </div>
+
+      <p
+        class="vazio"
+        *ngIf="medicacoes.length === 0"
+      >
+        Nenhuma medicação cadastrada.
+      </p>
 
       <button
-        class="btn-editar"
-        (click)="editarMedicacao(i)"
+        (click)="abrirModalMedicacao(); $event.stopPropagation()"
       >
-        ✎
+        + Adicionar Medicação
       </button>
 
-      <button
-        class="btn-remover"
-        (click)="removerMedicacao(i)"
-      >
-        X
+    </div>
+
+<!-- AGENDA ANUAL -->
+
+<div
+  class="card agenda-full"
+  routerLink="/agenda-anual"
+>
+
+  <div class="agenda-anual-card">
+
+    <div class="conteudo">
+
+      <h2>
+        🗓️ Agenda Anual
+      </h2>
+
+      <div class="mini-calendario">
+
+        <div class="mes">
+          {{ mesAtual }}
+        </div>
+
+        <div class="dias-grid">
+
+          <span
+            *ngFor="let dia of diasDoMes"
+            [class.hoje]="dia === diaAtual"
+          >
+            {{ dia }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="seta">
+      ›
+    </div>
+
+  </div>
+
+</div>
+
+    <!-- ALERTAS -->
+    <div class="card alertas">
+
+      <h2>
+        🔔 Alertas
+      </h2>
+
+      <div class="alerta">
+        ⚠ Medicação das 14h pendente
+      </div>
+
+      <div class="alerta">
+        ⚠ Exercício cognitivo não realizado
+      </div>
+
+    </div>
+
+    <!-- OBSERVAÇÕES -->
+    <div class="card">
+
+      <h2>
+        📝 Observações
+      </h2>
+
+      <textarea
+        placeholder="Digite observações do paciente..."
+      ></textarea>
+
+      <button>
+        Salvar Observação
       </button>
 
     </div>
 
   </div>
 
-  <p
-    class="vazio"
-    *ngIf="medicacoes.length === 0"
-  >
-    Nenhuma medicação cadastrada.
-  </p>
-
-  <button
-    (click)="abrirModalMedicacao()"
-  >
-    + Adicionar Medicação
-  </button>
-
 </div>
 
-<!-- MODAL -->
+<!-- MODAL MEDICAÇÃO -->
 <div
   class="overlay"
   *ngIf="mostrarModalMedicacao"
@@ -181,56 +301,6 @@
         Salvar
       </button>
 
-    </div>
-
-  </div>
-
-</div>
-
-
-    <!-- AGENDA -->
-    <div class="card">
-      <h2>📅 Agenda Semanal</h2>
-
-      <div class="agenda-item">
-        <strong>Consulta Médica</strong>
-        <p>Hoje - 15:00</p>
-      </div>
-
-      <div class="agenda-item">
-        <strong>Fisioterapia</strong>
-        <p>Sexta - 09:00</p>
-      </div>
-
-      <button>
-        + Adicionar Compromisso
-      </button>
-    </div>
-
-    <!-- ALERTAS -->
-    <div class="card alertas">
-      <h2>🔔 Alertas</h2>
-
-      <div class="alerta">
-        ⚠ Medicação das 14h pendente
-      </div>
-
-      <div class="alerta">
-        ⚠ Exercício cognitivo não realizado
-      </div>
-    </div>
-
-    <!-- OBSERVAÇÕES -->
-    <div class="card">
-      <h2>📝 Observações</h2>
-
-      <textarea
-        placeholder="Digite observações do paciente..."
-      ></textarea>
-
-      <button>
-        Salvar Observação
-      </button>
     </div>
 
   </div>

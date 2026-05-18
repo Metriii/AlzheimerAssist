@@ -24,7 +24,7 @@
 
   margin: 0 auto;
 
-  padding: 85px 24px 40px;
+  padding: 20px 24px 40px;
 
   display: flex;
 
@@ -543,4 +543,138 @@ button:hover {
   height: 18px;
 
   cursor: pointer;
+}
+.card-click {
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card-click:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+}
+
+.card-click:active {
+  transform: scale(0.98);
+}
+/* CARD CLICÁVEL */
+
+.agenda-full {
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.agenda-full:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.08);
+}
+
+.agenda-full:active {
+  transform: scale(0.98);
+}
+/* AGENDA ANUAL */
+
+.agenda-anual-card {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 18px;
+}
+
+.agenda-anual-card .conteudo {
+  flex: 1;
+}
+
+/* MINI CALENDÁRIO */
+
+.mini-calendario {
+  width: 100%;
+
+  max-width: 550px;
+
+  background: white;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* MÊS */
+
+.mes {
+  background: #6FA8DC;
+
+  color: white;
+
+  text-align: center;
+
+  padding: 10px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+/* DIAS */
+
+.dias-grid {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 10px;
+
+  padding: 18px;
+}
+
+.dias-grid span {
+  width: 28px;
+
+  height: 28px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #1F2937;
+}
+
+.dias-grid span.hoje {
+  background: #6FA8DC;
+
+  color: white;
+}
+
+/* SETA */
+
+.agenda-anual-card .seta {
+  font-size: 30px;
+
+  font-weight: bold;
+
+  color: #6FA8DC;
 }
