@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AlzheimerAssist")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5229a82e63d52f4381452340a0f790cd9a1f9c82")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27612def56f199c4715631156b116611b8870af4")]
 [assembly: System.Reflection.AssemblyProductAttribute("AlzheimerAssist")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AlzheimerAssist")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
