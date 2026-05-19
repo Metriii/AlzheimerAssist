@@ -119,5 +119,10 @@ export class AgendaService {
     this.save(atual);
 
   }
+  loadPorPaciente(email: string) {
+  return JSON.parse(
+    localStorage.getItem(`agenda-diaria-${email}`) || '[]'
+  );
+}
 
 }

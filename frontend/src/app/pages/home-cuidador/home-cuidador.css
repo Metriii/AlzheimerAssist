@@ -169,19 +169,58 @@
   background: #22C55E;
 }
 
-/* ALERTAS */
-.alertas {
-  border-left: 4px solid #EF4444;
+.alerta {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  background: #FEF2F2;
+
+  animation: aparecerAlerta 0.3s ease;
 }
 
-.alerta {
-  margin-bottom: 12px;
+.alerta-vazio {
+
+  margin-top: 10px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  background: #ECFDF5;
+
+  color: #16A34A;
 
   font-size: 14px;
 
-  color: #374151;
+  font-weight: 700;
+}
 
-  line-height: 1.5;
+@keyframes aparecerAlerta {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(8px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
 }
 
 /* AGENDA */
@@ -677,4 +716,169 @@ button:hover {
   font-weight: bold;
 
   color: #6FA8DC;
+}
+/* VINCULO */
+
+.form-vinculo {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-top: 18px;
+}
+
+.form-vinculo input {
+
+  width: 100%;
+
+  height: 52px;
+
+  border: 1px solid #D1D5DB;
+
+  border-radius: 16px;
+
+  padding: 0 16px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  background: #F9FAFB;
+}
+
+.form-vinculo input:focus {
+
+  border-color: #6FA8DC;
+}
+
+.form-vinculo button {
+
+  height: 52px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  background: #6FA8DC;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.form-vinculo button:hover {
+
+  transform: translateY(-2px);
+}
+
+.vinculo-sucesso {
+
+  margin-top: 16px;
+
+  color: #16A34A;
+
+  font-weight: 700;
+
+  font-size: 15px;
+}
+
+.vinculo-erro {
+
+  margin-top: 16px;
+
+  color: #DC2626;
+
+  font-weight: 700;
+
+  font-size: 15px;
+}
+/* OBSERVAÇÃO POR EMAIL */
+
+.input-email {
+  width: 100%;
+
+  height: 50px;
+
+  padding: 0 14px;
+
+  border: 1px solid #E5E7EB;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+
+  outline: none;
+
+  margin-bottom: 16px;
+
+  background: #F9FAFB;
+
+  transition: 0.2s;
+}
+
+.input-email:focus {
+  background: white;
+
+  border-color: #6FA8DC;
+
+  box-shadow: 0 0 0 2px rgba(111,168,220,0.15);
+}
+
+.card textarea {
+  width: 100%;
+
+  min-height: 120px;
+
+  padding: 14px;
+
+  border: 1px solid #E5E7EB;
+
+  border-radius: 12px;
+
+  resize: none;
+
+  font-size: 14px;
+
+  outline: none;
+
+  margin-bottom: 16px;
+
+  background: #F9FAFB;
+
+  transition: 0.2s;
+}
+
+.card textarea:focus {
+  background: white;
+
+  border-color: #6FA8DC;
+
+  box-shadow: 0 0 0 2px rgba(111,168,220,0.15);
+}
+
+.card button {
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 22px rgba(111,168,220,0.25);
+}
+
+.card button:active {
+  transform: scale(0.98);
 }

@@ -26,6 +26,8 @@ export class HomeCuidador {
 
   atividades: any[] = [];
 
+  alertasPaciente: string[] = [];
+
   mesAtual = '';
 
   diaAtual: number = new Date().getDate();
@@ -42,15 +44,29 @@ export class HomeCuidador {
 
   editandoIndex: number | null = null;
 
+  emailPaciente = '';
+
+  pacienteVinculado: any = null;
+
+  erroVinculo = '';
+
+  emailDestino = '';
+
+  observacaoPaciente = '';
+
   constructor(
     private agenda: AgendaService
   ) {}
 
   ngOnInit(): void {
 
+    this.carregarPacienteVinculado();
+
     this.carregarMedicacoes();
 
     this.carregarAtividades();
+
+    this.gerarAlertas();
 
     this.carregarMiniCalendario();
 
@@ -60,12 +76,171 @@ export class HomeCuidador {
 
       this.carregarMedicacoes();
 
+      this.gerarAlertas();
+
     }, 500);
 
   }
 
+  carregarPacienteVinculado() {
+
+    const pacienteSalvo = localStorage.getItem(
+      'pacienteVinculado'
+    );
+
+    if (pacienteSalvo) {
+
+      this.pacienteVinculado =
+        JSON.parse(pacienteSalvo);
+
+    }
+
+  }
+
+  vincularPaciente() {
+
+    this.erroVinculo = '';
+
+    if (this.emailPaciente.trim() === '') {
+
+      this.erroVinculo =
+        'Digite o e-mail do paciente.';
+
+      return;
+    }
+
+    const usuarios = JSON.parse(
+      localStorage.getItem(
+        'usuariosCadastrados'
+      ) || '[]'
+    );
+
+    const pacienteExiste = usuarios.find(
+      (usuario: any) =>
+
+        usuario.email === this.emailPaciente &&
+
+        usuario.tipo === 'paciente'
+    );
+
+    if (!pacienteExiste) {
+
+      this.pacienteVinculado = null;
+
+      this.erroVinculo =
+        'Paciente não encontrado.';
+
+      return;
+    }
+
+    this.pacienteVinculado =
+      pacienteExiste;
+
+    localStorage.setItem(
+      'pacienteVinculado',
+      JSON.stringify(pacienteExiste)
+    );
+
+    this.emailPaciente = '';
+
+    this.carregarMedicacoes();
+
+    this.carregarAtividades();
+
+    this.gerarAlertas();
+
+  }
+
+  removerVinculoPaciente() {
+
+    this.pacienteVinculado = null;
+
+    this.medicacoes = [];
+
+    this.atividades = [];
+
+    this.alertasPaciente = [];
+
+    localStorage.removeItem(
+      'pacienteVinculado'
+    );
+
+  }
+
+  enviarObservacaoEmail() {
+
+    if (
+      this.emailDestino.trim() === '' ||
+      this.observacaoPaciente.trim() === ''
+    ) {
+      alert(
+        'Preencha o e-mail e a observação.'
+      );
+
+      return;
+    }
+
+    const assunto =
+      `Observação do paciente ${this.pacienteVinculado?.nome || ''}`;
+
+    const mensagem =
+      `
+Paciente:
+${this.pacienteVinculado?.nome || ''}
+
+Observação:
+${this.observacaoPaciente}
+`;
+
+    const link =
+      `mailto:${this.emailDestino}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(mensagem)}`;
+
+    window.location.href = link;
+
+    this.emailDestino = '';
+
+    this.observacaoPaciente = '';
+
+  }
+
+  gerarAlertas() {
+
+    this.alertasPaciente = [];
+
+    if (!this.pacienteVinculado) {
+      return;
+    }
+
+    this.medicacoes.forEach((medicacao: any) => {
+
+      if (!medicacao.tomado) {
+
+        this.alertasPaciente.push(
+          `Medicação ${medicacao.nome} às ${medicacao.horario} pendente`
+        );
+
+      }
+
+    });
+
+    if (this.atividades.length === 0) {
+
+      this.alertasPaciente.push(
+        'Exercício cognitivo não realizado'
+      );
+
+    }
+
+  }
+
   private getChaveMedicacoes(): string {
-    return 'medicacoesPaciente';
+
+    if (!this.pacienteVinculado) {
+      return 'medicacoesPaciente';
+    }
+
+    return `medicacoesPaciente-${this.pacienteVinculado.email}`;
+
   }
 
   carregarMedicacoes() {
@@ -80,14 +255,34 @@ export class HomeCuidador {
 
   salvarListaMedicacoes() {
 
+    if (!this.pacienteVinculado) {
+
+      alert(
+        'Vincule um paciente antes.'
+      );
+
+      return;
+    }
+
     localStorage.setItem(
       this.getChaveMedicacoes(),
       JSON.stringify(this.medicacoes)
     );
 
+    this.gerarAlertas();
+
   }
 
   abrirModalMedicacao() {
+
+    if (!this.pacienteVinculado) {
+
+      alert(
+        'Vincule um paciente primeiro.'
+      );
+
+      return;
+    }
 
     this.editandoIndex = null;
 
@@ -117,11 +312,24 @@ export class HomeCuidador {
 
   salvarMedicacao() {
 
+    if (!this.pacienteVinculado) {
+
+      alert(
+        'Vincule um paciente antes.'
+      );
+
+      return;
+    }
+
     if (
       this.nomeMedicacao.trim() === '' ||
       this.horarioMedicacao.trim() === ''
     ) {
-      alert('Preencha o nome e o horário.');
+
+      alert(
+        'Preencha o nome e o horário.'
+      );
+
       return;
     }
 
@@ -154,6 +362,15 @@ export class HomeCuidador {
 
   editarMedicacao(index: number) {
 
+    if (!this.pacienteVinculado) {
+
+      alert(
+        'Vincule um paciente primeiro.'
+      );
+
+      return;
+    }
+
     const medicacao =
       this.medicacoes[index];
 
@@ -174,16 +391,36 @@ export class HomeCuidador {
 
   removerMedicacao(index: number) {
 
+    if (!this.pacienteVinculado) {
+
+      alert(
+        'Vincule um paciente primeiro.'
+      );
+
+      return;
+    }
+
     this.medicacoes.splice(index, 1);
 
     this.salvarListaMedicacoes();
+
+    this.gerarAlertas();
 
   }
 
   carregarAtividades() {
 
+    if (!this.pacienteVinculado) {
+
+      this.atividades = [];
+
+      return;
+    }
+
     this.atividades =
-      this.agenda.load();
+      this.agenda.loadPorPaciente(
+        this.pacienteVinculado.email
+      );
 
   }
 

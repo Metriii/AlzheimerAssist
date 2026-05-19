@@ -16,34 +16,41 @@
   <!-- GRID -->
   <div class="grid">
 
-    <!-- GEOLOCALIZAÇÃO -->
-    <div class="card">
+    <!-- VINCULAR PACIENTE -->
+<div class="card card-click">
+  <h2>
+    🔗 Vincular Paciente
+  </h2>
 
-      <h2>
-        📍 Geolocalização
-      </h2>
+  <div class="form-vinculo">
 
-      <div class="item">
+    <input
+      type="email"
+      [(ngModel)]="emailPaciente"
+      placeholder="Digite o e-mail do paciente"
+    />
 
-        <span>
-          Status
-        </span>
+    <button (click)="vincularPaciente()">
+      Vincular paciente
+    </button>
 
-        <span class="status ok">
-          Zona Segura
-        </span>
+  </div>
 
-      </div>
+  <div
+    class="vinculo-sucesso"
+    *ngIf="pacienteVinculado"
+  >
+    ✅ {{ pacienteVinculado.nome }}
+  </div>
 
-      <div class="item-col">
-        Última atualização: há 2 minutos
-      </div>
+  <div
+    class="vinculo-erro"
+    *ngIf="erroVinculo"
+  >
+    ❌ {{ erroVinculo }}
+  </div>
 
-      <div class="item-col">
-        Zona segura ativa
-      </div>
-
-    </div>
+</div>
 
     <!-- AGENDA DO DIA -->
     <div
@@ -207,38 +214,51 @@
 </div>
 
     <!-- ALERTAS -->
-    <div class="card alertas">
+<div class="card alertas">
 
-      <h2>
-        🔔 Alertas
-      </h2>
+  <h2>
+    🔔 Alertas
+  </h2>
 
-      <div class="alerta">
-        ⚠ Medicação das 14h pendente
-      </div>
+  <div
+    class="alerta"
+    *ngFor="let alerta of alertasPaciente"
+  >
+    ⚠ {{ alerta }}
+  </div>
 
-      <div class="alerta">
-        ⚠ Exercício cognitivo não realizado
-      </div>
+  <div
+    class="alerta-vazio"
+    *ngIf="alertasPaciente.length === 0"
+  >
+    ✅ Nenhum alerta encontrado.
+  </div>
+</div>
 
-    </div>
 
     <!-- OBSERVAÇÕES -->
-    <div class="card">
+<div class="card card-click">
 
-      <h2>
-        📝 Observações
-      </h2>
+  <h2>
+    📝 Observações
+  </h2>
 
-      <textarea
-        placeholder="Digite observações do paciente..."
-      ></textarea>
+  <input
+    type="email"
+    [(ngModel)]="emailDestino"
+    placeholder="Digite o e-mail que vai receber"
+    class="input-email"
+  />
 
-      <button>
-        Salvar Observação
-      </button>
+  <textarea
+    [(ngModel)]="observacaoPaciente"
+    placeholder="Digite observações do paciente..."
+  ></textarea>
 
-    </div>
+  <button (click)="enviarObservacaoEmail()">
+      Enviar Observação
+  </button>
+
 
   </div>
 

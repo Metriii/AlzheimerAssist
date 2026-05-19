@@ -5,7 +5,6 @@ import { RegisterComponent } from './pages/register/register';
 import { HomeComponent } from './pages/home/home';
 import { HomeCuidador } from './pages/home-cuidador/home-cuidador';
 import { HomePacienteComponent } from './pages/home-paciente/home-paciente';
-import { VincularPaciente } from './pages/vincular-paciente/vincular-paciente';
 import { AtividadeMemoria } from './pages/atividade-memoria/atividade-memoria';
 import { AtividadeAnimal } from './pages/atividade-animal/atividade-animal';
 import { JogoMemoria } from './pages/jogo-memoria/jogo-memoria';
@@ -26,7 +25,6 @@ export const routes: Routes = [
 
   { path: 'home', component: HomeComponent },
   { path: 'home-cuidador', component: HomeCuidador },
-  { path: 'vincular-paciente', component: VincularPaciente },
   { path: 'home-paciente', component: HomePacienteComponent },
 
   { path: 'atividade-memoria', component: AtividadeMemoria },
